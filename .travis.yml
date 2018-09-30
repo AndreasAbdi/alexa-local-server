@@ -5,7 +5,7 @@ go:
   - tip
 
 env:
-  - GIMME_OS=linux GIMME_ARCH=amd64 DEP_VERSION="0.4.1"
+  - GIMME_OS=linux GIMME_ARCH=amd64 DEP_VERSION=0.4.1
 
 before_install:
   # Download the binary to bin folder in $GOPATH
