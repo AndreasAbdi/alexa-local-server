@@ -36,3 +36,11 @@
 [[constraint]]
   branch = "master"
   name = "github.com/AndreasAbdi/go-castv2"
+
+[[constraint]]
+  branch = "master"
+  name = "github.com/mikeflynn/go-alexa"
+
+[[constraint]]
+  name = "github.com/urfave/negroni"
+  version = "1.0.0"

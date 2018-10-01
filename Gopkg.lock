@@ -106,6 +106,25 @@
 
 [[projects]]
   branch = "master"
+  digest = "1:df556bda10deaf1dfd3a6d6d7e9038e9b143a623608ed793aa2f4129e4b97675"
+  name = "github.com/mikeflynn/go-alexa"
+  packages = [
+    "skillserver",
+    "skillserver/dialog",
+  ]
+  pruneopts = "UT"
+  revision = "ee5f23c4bb659287d3fddbaf1b76348d6347d221"
+
+[[projects]]
+  digest = "1:d688f4ad71b5dfad95c2d74cb0feac09f8f3c32ae5cecc078230dbdeece39e53"
+  name = "github.com/urfave/negroni"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "c6a59be0ce122566695fbd5e48a77f8f10c8a63a"
+  version = "v1.0.0"
+
+[[projects]]
+  branch = "master"
   digest = "1:d5891c5bca9c62e5d394ca26491d2b710a1dc08cedeb0ca8f9ac4c3305120b02"
   name = "golang.org/x/crypto"
   packages = [
@@ -143,6 +162,8 @@
   input-imports = [
     "github.com/AndreasAbdi/go-castv2",
     "github.com/gorilla/mux",
+    "github.com/mikeflynn/go-alexa/skillserver",
+    "github.com/urfave/negroni",
   ]
   solver-name = "gps-cdcl"
   solver-version = 1
