@@ -13,7 +13,7 @@ BINARY_NAME=alexa_local_server
 BUILD_DIRECTORY=bin
 BINARY_PATH=$(BUILD_DIRECTORY)/$(BINARY_NAME)
 
-all: clean build test 
+all: clean build test run
 run: build
 	./$(BINARY_PATH)
 full: full_clean full_build
