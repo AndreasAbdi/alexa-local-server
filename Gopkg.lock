@@ -2,6 +2,49 @@
 
 
 [[projects]]
+  branch = "master"
+  digest = "1:9750be1b8665a2a6df400f320e57dff0ea1c7690c63dc77fe704778b7bf69b97"
+  name = "github.com/AndreasAbdi/go-castv2"
+  packages = [
+    ".",
+    "api",
+    "configs",
+    "controllers",
+    "controllers/dashcast",
+    "controllers/media",
+    "controllers/receiver",
+    "controllers/youtube",
+    "generic",
+    "primitives",
+  ]
+  pruneopts = "UT"
+  revision = "02484c1a262284ddc6bb18d0548525ae8bbf5406"
+
+[[projects]]
+  digest = "1:ffe9824d294da03b391f44e1ae8281281b4afc1bdaa9588c9097785e3af10cec"
+  name = "github.com/davecgh/go-spew"
+  packages = ["spew"]
+  pruneopts = "UT"
+  revision = "8991bc29aa16c548c550c7ff78260e27b9ab7c73"
+  version = "v1.1.1"
+
+[[projects]]
+  digest = "1:ca82a3b99694824c627573c2a76d0e49719b4a9c02d1d85a2ac91f1c1f52ab9b"
+  name = "github.com/fatih/structs"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "a720dfa8df582c51dee1b36feabb906bde1588bd"
+  version = "v1.0"
+
+[[projects]]
+  digest = "1:bbadccf3d3317ea03c0dac0b45b673b4b397c8f91a1d2eff550a3c51c4ad770e"
+  name = "github.com/gogo/protobuf"
+  packages = ["proto"]
+  pruneopts = "UT"
+  revision = "636bf0302bc95575d69441b25a2603156ffdddf1"
+  version = "v1.1.1"
+
+[[projects]]
   digest = "1:c79fb010be38a59d657c48c6ba1d003a8aa651fa56b579d959d74573b7dff8e1"
   name = "github.com/gorilla/context"
   packages = ["."]
@@ -17,9 +60,89 @@
   revision = "e3702bed27f0d39777b0b37b664b6280e8ef8fbf"
   version = "v1.6.2"
 
+[[projects]]
+  branch = "master"
+  digest = "1:14e2169fd9308979db0708469e3a780c83ed784c0e03c1b22c07da297dca5ac8"
+  name = "github.com/hashicorp/go.net"
+  packages = [
+    "internal/iana",
+    "ipv4",
+    "ipv6",
+  ]
+  pruneopts = "UT"
+  revision = "104dcad90073cd8d1e6828b2af19185b60cf3e29"
+
+[[projects]]
+  branch = "master"
+  digest = "1:216e864a4004f6ddbb568f1605be94feb190c5a07ac99026279c9a129a6896c9"
+  name = "github.com/hashicorp/mdns"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "4e527d9d808175f132f949523e640c699e4253bb"
+
+[[projects]]
+  digest = "1:8eb1de8112c9924d59bf1d3e5c26f5eaa2bfc2a5fcbb92dc1c2e4546d695f277"
+  name = "github.com/imdario/mergo"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "9f23e2d6bd2a77f959b2bf6acdbefd708a83a4a4"
+  version = "v0.3.6"
+
+[[projects]]
+  digest = "1:2474b4954b4be5163937f90ff3ab0769c2f9c432ccdb7030063fc94d6baf1a20"
+  name = "github.com/imroc/req"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "bc0679ab8b32c507810efbc37122451c03eaf203"
+  version = "v0.2.1"
+
+[[projects]]
+  digest = "1:fc5013a7a6f9600051ad48b059fef4a3035e8692d1c54ffd8dccfaa8ebe0b505"
+  name = "github.com/miekg/dns"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "ba6747e8a94115e9dc7738afb87850687611df1b"
+  version = "v1.0.12"
+
+[[projects]]
+  branch = "master"
+  digest = "1:d5891c5bca9c62e5d394ca26491d2b710a1dc08cedeb0ca8f9ac4c3305120b02"
+  name = "golang.org/x/crypto"
+  packages = [
+    "ed25519",
+    "ed25519/internal/edwards25519",
+  ]
+  pruneopts = "UT"
+  revision = "5295e8364332db77d75fce11f1d19c053919a9c9"
+
+[[projects]]
+  branch = "master"
+  digest = "1:7679523acab7ab7d18ac9e00b46991470a212a1e3dc653027db8f331b02397a2"
+  name = "golang.org/x/net"
+  packages = [
+    "bpf",
+    "internal/iana",
+    "internal/socket",
+    "ipv4",
+    "ipv6",
+  ]
+  pruneopts = "UT"
+  revision = "4dfa2610cdf3b287375bbba5b8f2a14d3b01d8de"
+
+[[projects]]
+  branch = "master"
+  digest = "1:e2ced6fdf654069e8713c96012275fbd245381673d53e8c8ace640b28441a28b"
+  name = "golang.org/x/sys"
+  packages = ["unix"]
+  pruneopts = "UT"
+  revision = "e4b3c5e9061176387e7cea65e4dc5853801f3fb7"
+
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  input-imports = ["github.com/gorilla/mux"]
+  input-imports = [
+    "github.com/AndreasAbdi/go-castv2",
+    "github.com/gorilla/mux",
+  ]
   solver-name = "gps-cdcl"
   solver-version = 1
