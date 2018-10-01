@@ -1,7 +1,13 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+
+	"github.com/AndreasAbdi/alexa-local-server/server"
+)
 
 func main() {
-	fmt.Print("Hell world!")
+	server := app.NewServer()
+	server.Init()
+	fmt.Print("Local Server deployed!")
 }

@@ -1,21 +1,43 @@
-package als
+package app
 
 import (
-	"fmt"
+	"log"
+	"net/http"
 	"sync"
 
 	"github.com/gorilla/mux"
 )
 
-type server struct {
+//Server is the instance of the local server to be deployed.
+type Server struct {
 	do     sync.Once
-	router mux.Router
+	router *mux.Router
 }
 
-func (s *server) Init() {
-	s.do.Do(s.DoInit)
+//NewServer is constructor for the server.
+func NewServer() *Server {
+	return &Server{
+		router: mux.NewRouter(),
+	}
 }
 
-func (s *server) DoInit() {
-	fmt.Print("Hello world from server init")
+//Init instantiates whatever is needed at the beginning
+func (s *Server) Init() {
+	s.do.Do(s.onceBody)
+
+}
+
+func (s *Server) onceBody() {
+	s.routes()
+	http.Handle("/", s.router)
+	err := http.ListenAndServe(":8000", nil)
+	if err != nil {
+		log.Fatal("ListenAndServe failed: ", err)
+	}
+}
+
+func (s *Server) routes() {
+	s.router.HandleFunc("/youtube_test", s.handleYoutube())
+	s.router.HandleFunc("/media_test", s.handleMedia())
+	s.router.HandleFunc("/quit", s.handleQuit())
 }
