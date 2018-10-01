@@ -1,14 +1,12 @@
 package app
 
 import (
-	"fmt"
 	"log"
 	"net/http"
 	"sync"
 
 	"github.com/AndreasAbdi/alexa-local-server/server/encoding"
 	"github.com/AndreasAbdi/alexa-local-server/server/middleware"
-	"github.com/mikeflynn/go-alexa/skillserver"
 	"github.com/urfave/negroni"
 
 	"github.com/gorilla/mux"
@@ -45,20 +43,6 @@ func (s *Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 func (s *Server) onceBody() {
 	s.routes()
-	alexaRouter := s.router.PathPrefix("/alexa").Subrouter()
-	alexaRouter.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		alexaResp := skillserver.NewEchoResponse()
-		json, _ := alexaResp.String()
-		fmt.Print("Got alexa request")
-		log.Print("Got an alexa request in log!")
-		w.Header().Set("Content-Type", "application/json;charset=UTF-8")
-		w.Write(json)
-	})
-	s.router.PathPrefix("/alexa").Handler(negroni.New(
-		negroni.HandlerFunc(middleware.GetValidateRequest()),
-		negroni.HandlerFunc(middleware.GetVerifyJSON(s.appID, s.encodingService)),
-		negroni.Wrap(alexaRouter),
-	))
 	n := negroni.Classic()
 	n.UseHandler(s.router)
 	err := http.ListenAndServe(s.address, n)
@@ -75,4 +59,12 @@ func (s *Server) routes() {
 	s.router.HandleFunc("/test", func(w http.ResponseWriter, r *http.Request) {
 		log.Print("Test Endpoint.")
 	})
+
+	alexaRouter := s.router.PathPrefix("/alexa").Subrouter()
+	alexaRouter.HandleFunc("/", s.handleAlexa())
+	s.router.PathPrefix("/alexa").Handler(negroni.New(
+		negroni.HandlerFunc(middleware.GetValidateRequest()),
+		negroni.HandlerFunc(middleware.GetVerifyJSON(s.appID, s.encodingService)),
+		negroni.Wrap(alexaRouter),
+	))
 }
