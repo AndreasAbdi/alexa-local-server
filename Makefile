@@ -28,7 +28,7 @@ build: format
 build_static:
 	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 $(GOBUILD) -a -installsuffix nocgo -ldflags '-w -extldflags "-static"' -o $(BINARY_PATH) -v .
 docker_build:
-	docker build -t AndreasAbdi/alexa-local-server .
+	docker build -t aa/alexa-local-server .
 test:
 	$(GOTEST) -v ./...
 
