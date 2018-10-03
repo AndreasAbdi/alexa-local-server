@@ -3,7 +3,7 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:9750be1b8665a2a6df400f320e57dff0ea1c7690c63dc77fe704778b7bf69b97"
+  digest = "1:ae0b9d3f34c52dd22af6e5f4a57d5030ff86008fccdf4c9802f59a946d1d5283"
   name = "github.com/AndreasAbdi/go-castv2"
   packages = [
     ".",
@@ -18,15 +18,7 @@
     "primitives",
   ]
   pruneopts = "UT"
-  revision = "02484c1a262284ddc6bb18d0548525ae8bbf5406"
-
-[[projects]]
-  digest = "1:ffe9824d294da03b391f44e1ae8281281b4afc1bdaa9588c9097785e3af10cec"
-  name = "github.com/davecgh/go-spew"
-  packages = ["spew"]
-  pruneopts = "UT"
-  revision = "8991bc29aa16c548c550c7ff78260e27b9ab7c73"
-  version = "v1.1.1"
+  revision = "cf625be065cf698354ff921bd65b817e3e24798f"
 
 [[projects]]
   digest = "1:ca82a3b99694824c627573c2a76d0e49719b4a9c02d1d85a2ac91f1c1f52ab9b"
@@ -226,7 +218,7 @@
     "ed25519/internal/edwards25519",
   ]
   pruneopts = "UT"
-  revision = "5295e8364332db77d75fce11f1d19c053919a9c9"
+  revision = "e3636079e1a4c1f337f212cc5cd2aca108f6c900"
 
 [[projects]]
   branch = "master"
@@ -242,15 +234,15 @@
     "ipv6",
   ]
   pruneopts = "UT"
-  revision = "4dfa2610cdf3b287375bbba5b8f2a14d3b01d8de"
+  revision = "f5e5bdd778241bfefa8627f7124c39cd6ad8d74f"
 
 [[projects]]
   branch = "master"
-  digest = "1:e2ced6fdf654069e8713c96012275fbd245381673d53e8c8ace640b28441a28b"
+  digest = "1:746ccf620ef9726c42453032e8e039860851ab5914278d24202f343a479a3073"
   name = "golang.org/x/sys"
   packages = ["unix"]
   pruneopts = "UT"
-  revision = "e4b3c5e9061176387e7cea65e4dc5853801f3fb7"
+  revision = "af653ce8b74f808d092db8ca9741fbb63d2a469d"
 
 [[projects]]
   digest = "1:8029e9743749d4be5bc9f7d42ea1659471767860f0cdc34d37c3111bd308a295"
