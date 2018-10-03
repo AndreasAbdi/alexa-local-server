@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"sync"
 
+	"github.com/AndreasAbdi/alexa-local-server/server/cast"
 	"github.com/AndreasAbdi/alexa-local-server/server/config"
 	"github.com/AndreasAbdi/alexa-local-server/server/encoding"
 	"github.com/AndreasAbdi/alexa-local-server/server/middleware"
@@ -18,6 +19,7 @@ type Server struct {
 	do              sync.Once
 	conf            config.Wrapper
 	encodingService *encoding.Service
+	castService     *cast.Service
 	router          *mux.Router
 }
 
@@ -27,6 +29,7 @@ func NewServer() *Server {
 	return &Server{
 		conf:            conf,
 		encodingService: &encoding.Service{},
+		castService:     cast.NewService(),
 		router:          mux.NewRouter(),
 	}
 }
@@ -63,7 +66,7 @@ func (s *Server) routes(config config.Wrapper) {
 	})
 
 	alexaRouter := s.router.PathPrefix("/alexa").Subrouter()
-	alexaRouter.HandleFunc("", s.handleAlexa(s.conf))
+	alexaRouter.HandleFunc("", s.handleAlexa(s.conf, s.castService))
 	s.router.PathPrefix("/alexa").Handler(negroni.New(
 		negroni.HandlerFunc(middleware.GetValidateRequest()),
 		negroni.HandlerFunc(middleware.GetVerifyJSON(s.conf.AlexaAppID, s.encodingService)),

@@ -6,6 +6,7 @@ import (
 	"net/http"
 
 	"github.com/AndreasAbdi/alexa-local-server/server/alexa"
+	"github.com/AndreasAbdi/alexa-local-server/server/cast"
 	"github.com/mikeflynn/go-alexa/skillserver"
 	"google.golang.org/api/googleapi/transport"
 	youtube "google.golang.org/api/youtube/v3"
@@ -39,7 +40,7 @@ func SearchVideo(ctx context.Context, googleKey string, query string) (idToTitle
 }
 
 //HandleSearch returns a function handler for alexa requests
-func HandleSearch(googleKey string) alexa.HandlerFunc {
+func HandleSearch(googleKey string, service *cast.Service) alexa.HandlerFunc {
 	return func(ctx context.Context, w http.ResponseWriter, r *skillserver.EchoRequest) {
 
 		query, err := r.GetSlotValue("searchQuery")
@@ -52,17 +53,29 @@ func HandleSearch(googleKey string) alexa.HandlerFunc {
 			http.Error(w, "Failed to perform search", 500)
 			return
 		}
-		for _, result := range results {
-			log.Print("First entry for search was" + result)
+		for id, title := range results {
+			log.Printf("First entry for search was %s: %s", id, title)
+			go func() {
+				playOnCast(id, service)
+			}()
+			writeHandleSearchVideoResponse(title, w)
 			return
 		}
-		log.Print("Was able to search")
+		log.Print("Was able to search but no entries found")
 		return
 	}
 }
 
-func writeResponse(w http.ResponseWriter) {
-	alexaResp := skillserver.NewEchoResponse()
-	alexaResp.OutputSpeech("Finished searching")
-	alexa.WriteResponse(w, alexaResp)
+func playOnCast(videoID string, service *cast.Service) {
+	device, err := service.GetDevice()
+	if err != nil {
+		return
+	}
+	device.PlayYoutubeVideo(videoID)
+}
+
+func writeHandleSearchVideoResponse(title string, w http.ResponseWriter) {
+	resp := skillserver.NewEchoResponse()
+	resp.OutputSpeech("Playing " + title)
+	alexa.WriteResponse(w, resp)
 }
