@@ -2,7 +2,6 @@ package youtube
 
 import (
 	"context"
-	"flag"
 	"log"
 	"net/http"
 
@@ -12,14 +11,13 @@ import (
 	youtube "google.golang.org/api/youtube/v3"
 )
 
-var (
-	query      = flag.String("query", "Google", "Search term")
-	maxResults = flag.Int64("max-results", 25, "Max YouTube results")
-)
-
+const maxResults = 25
 const key = ""
 
-func search(ctx context.Context, query string) ([]string, error) {
+//SearchVideo looks to youtube for videos with a defined query value and return id and title.
+func SearchVideo(ctx context.Context, query string) (idToTitle map[string]string, err error) {
+	idToTitle = make(map[string]string)
+
 	client := &http.Client{
 		Transport: &transport.APIKey{Key: key},
 	}
@@ -29,17 +27,16 @@ func search(ctx context.Context, query string) ([]string, error) {
 		return nil, err
 	}
 
-	call := service.Search.List("id,snippet").Q(query).Type("video").MaxResults(25)
+	call := service.Search.List("id,snippet").Q(query).Type("video").MaxResults(maxResults)
 	response, err := call.Do()
 	if err != nil {
 		return nil, err
 	}
 
-	elements := make([]string, 0)
 	for _, item := range response.Items {
-		elements = append(elements, item.Id.VideoId)
+		idToTitle[item.Id.VideoId] = item.Snippet.Title
 	}
-	return elements, nil
+	return idToTitle, nil
 }
 
 //HandleSearch returns a function handler for alexa requests
@@ -51,7 +48,7 @@ func HandleSearch() alexa.HandlerFunc {
 			http.Error(w, "no searchquery slot in unmarshalled alexa request", 500)
 			return
 		}
-		results, err := search(ctx, query)
+		results, err := SearchVideo(ctx, query)
 		if err != nil {
 			http.Error(w, "Failed to perform search", 500)
 			return

@@ -1,4 +1,4 @@
-// +build local
+//+build local
 
 package youtube_test
 
@@ -9,16 +9,16 @@ import (
 	"github.com/AndreasAbdi/alexa-local-server/server/youtube"
 )
 
-func TestYoutubeSearch(t *testing.T) {
+func TestYoutubeSearchVideo(t *testing.T) {
 	ctx := context.Background()
-	results, err := youtube.Search(ctx, "hi")
+	results, err := youtube.SearchVideo(ctx, "hi")
 	if err != nil {
 		t.Error(err)
 	}
 	t.Log("Got search results.")
 	t.Log("[RESULTS] START:")
-	for _, result := range results {
-		t.Log(result)
+	for k, v := range results {
+		t.Log(k, " : ", v)
 	}
 	t.Log("[RESULTS] END.")
 }
