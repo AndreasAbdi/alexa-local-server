@@ -136,10 +136,12 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:7679523acab7ab7d18ac9e00b46991470a212a1e3dc653027db8f331b02397a2"
+  digest = "1:bec9fee9f0fc9b6f8cbcd4a7e2d80036829079f0aaccc28776510b18ec5f0dc5"
   name = "golang.org/x/net"
   packages = [
     "bpf",
+    "context",
+    "context/ctxhttp",
     "internal/iana",
     "internal/socket",
     "ipv4",
@@ -156,6 +158,19 @@
   pruneopts = "UT"
   revision = "e4b3c5e9061176387e7cea65e4dc5853801f3fb7"
 
+[[projects]]
+  branch = "master"
+  digest = "1:ae31c771f35922d54cf03cab7fd33c77179cb679aec5f607b1f13e6c45c8b3ff"
+  name = "google.golang.org/api"
+  packages = [
+    "gensupport",
+    "googleapi",
+    "googleapi/internal/uritemplates",
+    "youtube/v3",
+  ]
+  pruneopts = "UT"
+  revision = "f5c49d98d21cc639f7ba8c7e4b127e88ee2af7ed"
+
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
@@ -164,6 +179,7 @@
     "github.com/gorilla/mux",
     "github.com/mikeflynn/go-alexa/skillserver",
     "github.com/urfave/negroni",
+    "google.golang.org/api/youtube/v3",
   ]
   solver-name = "gps-cdcl"
   solver-version = 1
