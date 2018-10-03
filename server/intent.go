@@ -7,6 +7,7 @@ import (
 	"time"
 
 	"github.com/AndreasAbdi/alexa-local-server/server/alexa"
+	"github.com/AndreasAbdi/alexa-local-server/server/youtube"
 	"github.com/mikeflynn/go-alexa/skillserver"
 )
 
@@ -23,12 +24,15 @@ func HandleIntent() alexa.HandlerFunc {
 		log.Println("Intent type is " + intent)
 		switch intent {
 		case "PlayMediaIntent":
-			log.Println("Got a isPlayMediaIntent")
+			log.Println("Got a Play Media Intent")
 			go func() {
 				device.PlayMedia(
 					"http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/BigBuckBunny.jpg",
 					"image/jpeg")
 			}()
+		case "PlayYoutubeSearchIntent":
+			log.Println("Got a Play Youtube Search Intent")
+			youtube.HandleSearch()(ctx, w, req)
 		case "PlayYoutubeIntent":
 			log.Println("Got a play youtube intent")
 			go func() { device.PlayYoutubeVideo("F1B9Fk_SgI0") }()
