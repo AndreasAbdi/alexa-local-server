@@ -12,14 +12,13 @@ import (
 )
 
 const maxResults = 25
-const key = ""
 
 //SearchVideo looks to youtube for videos with a defined query value and return id and title.
-func SearchVideo(ctx context.Context, query string) (idToTitle map[string]string, err error) {
+func SearchVideo(ctx context.Context, googleKey string, query string) (idToTitle map[string]string, err error) {
 	idToTitle = make(map[string]string)
 
 	client := &http.Client{
-		Transport: &transport.APIKey{Key: key},
+		Transport: &transport.APIKey{Key: googleKey},
 	}
 
 	service, err := youtube.New(client)
@@ -40,7 +39,7 @@ func SearchVideo(ctx context.Context, query string) (idToTitle map[string]string
 }
 
 //HandleSearch returns a function handler for alexa requests
-func HandleSearch() alexa.HandlerFunc {
+func HandleSearch(googleKey string) alexa.HandlerFunc {
 	return func(ctx context.Context, w http.ResponseWriter, r *skillserver.EchoRequest) {
 
 		query, err := r.GetSlotValue("searchQuery")
@@ -48,7 +47,7 @@ func HandleSearch() alexa.HandlerFunc {
 			http.Error(w, "no searchquery slot in unmarshalled alexa request", 500)
 			return
 		}
-		results, err := SearchVideo(ctx, query)
+		results, err := SearchVideo(ctx, googleKey, query)
 		if err != nil {
 			http.Error(w, "Failed to perform search", 500)
 			return

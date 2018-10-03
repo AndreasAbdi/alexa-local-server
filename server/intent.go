@@ -7,12 +7,13 @@ import (
 	"time"
 
 	"github.com/AndreasAbdi/alexa-local-server/server/alexa"
+	"github.com/AndreasAbdi/alexa-local-server/server/config"
 	"github.com/AndreasAbdi/alexa-local-server/server/youtube"
 	"github.com/mikeflynn/go-alexa/skillserver"
 )
 
 //HandleIntent deals with handling intent actions.
-func HandleIntent() alexa.HandlerFunc {
+func HandleIntent(conf config.Wrapper) alexa.HandlerFunc {
 
 	return func(ctx context.Context, w http.ResponseWriter, req *skillserver.EchoRequest) {
 		intent := req.GetIntentName()
@@ -32,7 +33,7 @@ func HandleIntent() alexa.HandlerFunc {
 			}()
 		case "PlayYoutubeSearchIntent":
 			log.Println("Got a Play Youtube Search Intent")
-			youtube.HandleSearch()(ctx, w, req)
+			youtube.HandleSearch(conf.GoogleKey)(ctx, w, req)
 		case "PlayYoutubeIntent":
 			log.Println("Got a play youtube intent")
 			go func() { device.PlayYoutubeVideo("F1B9Fk_SgI0") }()

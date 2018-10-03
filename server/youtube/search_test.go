@@ -1,4 +1,4 @@
-//+build local
+// +build local
 
 package youtube_test
 
@@ -6,12 +6,14 @@ import (
 	"context"
 	"testing"
 
+	"github.com/AndreasAbdi/alexa-local-server/server/config"
 	"github.com/AndreasAbdi/alexa-local-server/server/youtube"
 )
 
 func TestYoutubeSearchVideo(t *testing.T) {
 	ctx := context.Background()
-	results, err := youtube.SearchVideo(ctx, "hi")
+	conf := config.GetConfig()
+	results, err := youtube.SearchVideo(ctx, conf.GoogleKey, "hi")
 	if err != nil {
 		t.Error(err)
 	}

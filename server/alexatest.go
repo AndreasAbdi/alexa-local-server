@@ -6,14 +6,15 @@ import (
 	"net/http"
 
 	"github.com/AndreasAbdi/alexa-local-server/server/alexa"
+	"github.com/AndreasAbdi/alexa-local-server/server/config"
 	"github.com/mikeflynn/go-alexa/skillserver"
 )
 
-func (s *Server) handleAlexa(appID string) http.HandlerFunc {
+func (s *Server) handleAlexa(conf config.Wrapper) http.HandlerFunc {
 	alexaApp := alexa.App{
-		AppID:                   appID,
+		AppID:                   conf.AlexaAppID,
 		LaunchHandler:           handleFunc("LaunchRequest"),
-		IntentHandler:           HandleIntent(),
+		IntentHandler:           HandleIntent(conf),
 		SessionEndedHandler:     handleFunc("SessionEndedRequest"),
 		AudioPlayerStateHandler: handleFunc("AudioPlayerStateChangeRequest"),
 	}

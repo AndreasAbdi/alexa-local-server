@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"sync"
 
+	"github.com/AndreasAbdi/alexa-local-server/server/config"
 	"github.com/AndreasAbdi/alexa-local-server/server/encoding"
 	"github.com/AndreasAbdi/alexa-local-server/server/middleware"
 	"github.com/urfave/negroni"
@@ -15,17 +16,16 @@ import (
 //Server is the instance of the local server to be deployed.
 type Server struct {
 	do              sync.Once
-	appID           string
-	address         string
+	conf            config.Wrapper
 	encodingService *encoding.Service
 	router          *mux.Router
 }
 
 //NewServer is constructor for the server.
-func NewServer(address string, appID string) *Server {
+func NewServer() *Server {
+	conf := config.GetConfig()
 	return &Server{
-		address:         address,
-		appID:           appID,
+		conf:            conf,
 		encodingService: &encoding.Service{},
 		router:          mux.NewRouter(),
 	}
@@ -42,16 +42,18 @@ func (s *Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 }
 
 func (s *Server) onceBody() {
-	s.routes()
+	conf := config.GetConfig()
+
+	s.routes(conf)
 	n := negroni.Classic()
 	n.UseHandler(s.router)
-	err := http.ListenAndServe(s.address, n)
+	err := http.ListenAndServe(s.conf.ServerAddress, n)
 	if err != nil {
 		log.Fatal("ListenAndServe failed: ", err)
 	}
 }
 
-func (s *Server) routes() {
+func (s *Server) routes(config config.Wrapper) {
 
 	s.router.HandleFunc("/youtube_test", s.handleYoutube())
 	s.router.HandleFunc("/media_test", s.handleMedia())
@@ -61,10 +63,10 @@ func (s *Server) routes() {
 	})
 
 	alexaRouter := s.router.PathPrefix("/alexa").Subrouter()
-	alexaRouter.HandleFunc("", s.handleAlexa(s.appID))
+	alexaRouter.HandleFunc("", s.handleAlexa(s.conf))
 	s.router.PathPrefix("/alexa").Handler(negroni.New(
 		negroni.HandlerFunc(middleware.GetValidateRequest()),
-		negroni.HandlerFunc(middleware.GetVerifyJSON(s.appID, s.encodingService)),
+		negroni.HandlerFunc(middleware.GetVerifyJSON(s.conf.AlexaAppID, s.encodingService)),
 		negroni.Wrap(alexaRouter),
 	))
 }
