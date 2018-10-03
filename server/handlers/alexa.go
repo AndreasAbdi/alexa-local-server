@@ -1,9 +1,11 @@
-package app
+package handler
 
 import (
 	"context"
 	"log"
 	"net/http"
+
+	"github.com/AndreasAbdi/alexa-local-server/server/handlers/intent"
 
 	"github.com/AndreasAbdi/alexa-local-server/server/alexa"
 	"github.com/AndreasAbdi/alexa-local-server/server/cast"
@@ -11,15 +13,16 @@ import (
 	"github.com/mikeflynn/go-alexa/skillserver"
 )
 
-func (s *Server) handleAlexa(conf config.Wrapper, castService *cast.Service) http.HandlerFunc {
+//HandleAlexa for alexa http requests
+func HandleAlexa(conf config.Wrapper, castService *cast.Service) http.HandlerFunc {
 	alexaApp := alexa.App{
 		AppID:                   conf.AlexaAppID,
 		LaunchHandler:           handleFunc("LaunchRequest"),
-		IntentHandler:           HandleIntent(conf, castService),
+		IntentHandler:           intent.HandleIntent(conf, castService),
 		SessionEndedHandler:     handleFunc("SessionEndedRequest"),
 		AudioPlayerStateHandler: handleFunc("AudioPlayerStateChangeRequest"),
 	}
-	return alexa.HandleAlexaRequest(alexaApp, s.encodingService)
+	return alexa.HandleAlexaRequest(alexaApp)
 }
 
 func handleFunc(requestType string) alexa.HandlerFunc {

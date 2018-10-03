@@ -13,14 +13,9 @@ import (
 func TestYoutubeSearchVideo(t *testing.T) {
 	ctx := context.Background()
 	conf := config.GetConfig()
-	results, err := youtube.SearchVideo(ctx, conf.GoogleKey, "hi")
+	id, title, err := youtube.SearchVideo(ctx, conf.GoogleKey, "summertime magic")
 	if err != nil {
 		t.Error(err)
 	}
-	t.Log("Got search results.")
-	t.Log("[RESULTS] START:")
-	for k, v := range results {
-		t.Log(k, " : ", v)
-	}
-	t.Log("[RESULTS] END.")
+	t.Logf("Got search results. title: %s , id: %s", title, id)
 }

@@ -7,13 +7,10 @@ import (
 )
 
 //GetVerifyJSON Decode the JSON request and verify it.
-func GetVerifyJSON(appID string, encodeService *encoding.Service) func(http.ResponseWriter, *http.Request, http.HandlerFunc) {
-	if encodeService == nil {
-		encodeService = &encoding.Service{}
-	}
+func GetVerifyJSON(appID string) func(http.ResponseWriter, *http.Request, http.HandlerFunc) {
 	return func(w http.ResponseWriter, r *http.Request, next http.HandlerFunc) {
 		ctx := r.Context()
-		echoReq, err := encodeService.GetRequest(ctx, r)
+		echoReq, err := encoding.GetRequest(ctx, r)
 		if err != nil {
 			httpError(w, err.Error(), "Bad Request", 400)
 			return

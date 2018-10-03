@@ -22,11 +22,11 @@ var validRequestTypes = map[string]bool{
 }
 
 //HandleAlexaRequest for dealing with alexa requests
-func HandleAlexaRequest(app App, service *encoding.Service) http.HandlerFunc {
+func HandleAlexaRequest(app App) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		log.Print("Got an alexa request in log!")
 		ctx := r.Context()
-		alexaReq, err := service.GetRequest(ctx, r)
+		alexaReq, err := encoding.GetRequest(ctx, r)
 		if err != nil {
 			http.Error(w, (&encoding.Error{Internal: err}).Error(), http.StatusBadRequest)
 			return

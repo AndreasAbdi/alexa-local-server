@@ -1,4 +1,4 @@
-package app
+package intent
 
 import (
 	"context"
@@ -17,7 +17,7 @@ import (
 func HandleIntent(conf config.Wrapper, castService *cast.Service) alexa.HandlerFunc {
 	return func(ctx context.Context, w http.ResponseWriter, req *skillserver.EchoRequest) {
 		intent := req.GetIntentName()
-		device, err := getDevice()
+		device, err := castService.GetDevice()
 		if err != nil {
 			log.Print("Failed to get device")
 		}
@@ -34,6 +34,7 @@ func HandleIntent(conf config.Wrapper, castService *cast.Service) alexa.HandlerF
 		case "PlayYoutubeSearchIntent":
 			log.Println("Got a Play Youtube Search Intent")
 			youtube.HandleSearch(conf.GoogleKey, castService)(ctx, w, req)
+			return
 		case "PlayYoutubeIntent":
 			log.Println("Got a play youtube intent")
 			go func() { device.PlayYoutubeVideo("F1B9Fk_SgI0") }()
