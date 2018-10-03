@@ -1,6 +1,7 @@
 package encoding
 
 import (
+	"context"
 	"encoding/json"
 	"net/http"
 
@@ -12,7 +13,7 @@ type Service struct {
 }
 
 //GetRequest attempts to retrieve an unmarshalled value of an alexa request.
-func (s *Service) GetRequest(r *http.Request) (*skillserver.EchoRequest, error) {
+func (s *Service) GetRequest(ctx context.Context, r *http.Request) (*skillserver.EchoRequest, error) {
 	var echoReq *skillserver.EchoRequest
 	err := json.NewDecoder(r.Body).Decode(&echoReq)
 	return echoReq, err

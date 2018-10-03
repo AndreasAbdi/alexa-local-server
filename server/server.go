@@ -61,7 +61,7 @@ func (s *Server) routes() {
 	})
 
 	alexaRouter := s.router.PathPrefix("/alexa").Subrouter()
-	alexaRouter.HandleFunc("/", s.handleAlexa())
+	alexaRouter.HandleFunc("", s.handleAlexa(s.appID))
 	s.router.PathPrefix("/alexa").Handler(negroni.New(
 		negroni.HandlerFunc(middleware.GetValidateRequest()),
 		negroni.HandlerFunc(middleware.GetVerifyJSON(s.appID, s.encodingService)),

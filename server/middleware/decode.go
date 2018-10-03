@@ -12,7 +12,8 @@ func GetVerifyJSON(appID string, encodeService *encoding.Service) func(http.Resp
 		encodeService = &encoding.Service{}
 	}
 	return func(w http.ResponseWriter, r *http.Request, next http.HandlerFunc) {
-		echoReq, err := encodeService.GetRequest(r)
+		ctx := r.Context()
+		echoReq, err := encodeService.GetRequest(ctx, r)
 		if err != nil {
 			httpError(w, err.Error(), "Bad Request", 400)
 			return
@@ -28,7 +29,6 @@ func GetVerifyJSON(appID string, encodeService *encoding.Service) func(http.Resp
 			httpError(w, "Echo AppID mismatch!", "Bad Request", 400)
 			return
 		}
-
 		next(w, r)
 	}
 }
