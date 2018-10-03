@@ -9,7 +9,6 @@ import (
 	"github.com/AndreasAbdi/alexa-local-server/server/alexa"
 	"github.com/AndreasAbdi/alexa-local-server/server/cast"
 	"github.com/AndreasAbdi/alexa-local-server/server/config"
-	"github.com/AndreasAbdi/alexa-local-server/server/youtube"
 	"github.com/mikeflynn/go-alexa/skillserver"
 )
 
@@ -33,7 +32,7 @@ func HandleIntent(conf config.Wrapper, castService *cast.Service) alexa.HandlerF
 			}()
 		case "PlayYoutubeSearchIntent":
 			log.Println("Got a Play Youtube Search Intent")
-			youtube.HandleSearch(conf.GoogleKey, castService)(ctx, w, req)
+			HandleSearch(conf.GoogleKey, castService)(ctx, w, req)
 			return
 		case "PlayYoutubeIntent":
 			log.Println("Got a play youtube intent")
