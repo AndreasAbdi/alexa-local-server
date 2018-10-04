@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"net/http"
+	"strings"
 
 	"github.com/AndreasAbdi/alexa-local-server/server/alexa"
 	"github.com/AndreasAbdi/alexa-local-server/server/cast"
@@ -46,6 +47,12 @@ func playOnCast(videoID string, service *cast.Service) {
 
 func writeHandleSearchVideoResponse(title string, w http.ResponseWriter) {
 	resp := skillserver.NewEchoResponse()
-	resp.OutputSpeech("Playing " + title)
+	resp.OutputSpeech("Playing " + shortenTitle(title))
 	alexa.WriteResponse(w, resp)
+}
+
+func shortenTitle(title string) string {
+	shortened := strings.Split(title, "(")
+	shortened = strings.Split(shortened[0], "|")
+	return shortened[0]
 }
