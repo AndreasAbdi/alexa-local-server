@@ -2,21 +2,42 @@ package intent
 
 import (
 	"context"
-	"fmt"
 	"net/http"
 	"strings"
 
 	"github.com/AndreasAbdi/alexa-local-server/server/alexa"
 	"github.com/AndreasAbdi/alexa-local-server/server/cast"
 	"github.com/AndreasAbdi/alexa-local-server/server/youtube"
+	castv2 "github.com/AndreasAbdi/go-castv2"
 	"github.com/mikeflynn/go-alexa/skillserver"
 )
 
+const slotSearchQuery = "searchQuery"
+
+//HandlePlayNext returns a function handler for alexa requests that adds a video to the youtube playlist.
+func HandlePlayNext(googleKey string, service *cast.Service) alexa.HandlerFunc {
+	return genericSearch(googleKey, service, func(id string, device *castv2.Device) {
+		device.YoutubeController.PlayNext(id)
+	})
+}
+
+//HandleAddToPlaylist returns a function handler for alexa requests that adds a video to the youtube playlist.
+func HandleAddToPlaylist(googleKey string, service *cast.Service) alexa.HandlerFunc {
+	return genericSearch(googleKey, service, func(id string, device *castv2.Device) {
+		device.YoutubeController.AddToQueue(id)
+	})
+}
+
 //HandleSearch returns a function handler for alexa requests
 func HandleSearch(googleKey string, service *cast.Service) alexa.HandlerFunc {
-	return func(ctx context.Context, w http.ResponseWriter, r *skillserver.EchoRequest) {
+	return genericSearch(googleKey, service, func(id string, device *castv2.Device) {
+		device.PlayYoutubeVideo(id)
+	})
+}
 
-		query, err := r.GetSlotValue("searchQuery")
+func genericSearch(googleKey string, service *cast.Service, command func(string, *castv2.Device)) alexa.HandlerFunc {
+	return func(ctx context.Context, w http.ResponseWriter, r *skillserver.EchoRequest) {
+		query, err := r.GetSlotValue(slotSearchQuery)
 		if err != nil {
 			http.Error(w, "no searchquery slot in unmarshalled alexa request", 500)
 			return
@@ -26,27 +47,16 @@ func HandleSearch(googleKey string, service *cast.Service) alexa.HandlerFunc {
 			http.Error(w, "Failed to perform search", 500)
 			return
 		}
-		if err != nil {
-			fmt.Println("error:", err)
-		}
 		go func() {
-			playOnCast(id, service)
+			device, err := service.GetDevice()
+			if err != nil {
+				return
+			}
+			command(id, device)
 		}()
-		writeHandleSearchVideoResponse(title, w)
+		alexa.WriteSpeech(w, "Playing "+shortenTitle(title))
 		return
 	}
-}
-
-func playOnCast(videoID string, service *cast.Service) {
-	device, err := service.GetDevice()
-	if err != nil {
-		return
-	}
-	device.PlayYoutubeVideo(videoID)
-}
-
-func writeHandleSearchVideoResponse(title string, w http.ResponseWriter) {
-	alexa.WriteSpeech(w, "Playing "+shortenTitle(title))
 }
 
 func shortenTitle(title string) string {

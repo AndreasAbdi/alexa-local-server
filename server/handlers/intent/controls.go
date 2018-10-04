@@ -4,53 +4,94 @@ import (
 	"context"
 	"log"
 	"net/http"
+	"strconv"
 	"time"
 
 	"github.com/AndreasAbdi/alexa-local-server/server/alexa"
 	"github.com/AndreasAbdi/alexa-local-server/server/cast"
+	castv2 "github.com/AndreasAbdi/go-castv2"
 	"github.com/mikeflynn/go-alexa/skillserver"
 )
 
+const slotSeekTime = "seekTime"
+
 //HandlePlay commands
 func HandlePlay(service *cast.Service) alexa.HandlerFunc {
-	return func(ctx context.Context, w http.ResponseWriter, r *skillserver.EchoRequest) {
-		log.Println("Got a play intent")
-		device, err := service.GetDevice()
-		if err == nil {
-			go func() {
-				device.MediaController.Play(time.Second * 10)
-			}()
-		}
-		alexaResp := skillserver.NewEchoResponse()
-		alexa.WriteResponse(w, alexaResp)
-	}
+	return getGenericControlFunc(service, intentClearPlaylist, func(device *castv2.Device) {
+		device.MediaController.Play(time.Second * 10)
+	})
 }
 
 //HandlePause commands
 func HandlePause(service *cast.Service) alexa.HandlerFunc {
+	return getGenericControlFunc(service, intentClearPlaylist, func(device *castv2.Device) {
+		device.MediaController.Pause(time.Second * 10)
+	})
+}
+
+//HandleClear comamnds
+func HandleClear(service *cast.Service) alexa.HandlerFunc {
+	return getGenericControlFunc(service, intentClearPlaylist, func(device *castv2.Device) {
+		device.YoutubeController.ClearPlaylist()
+	})
+}
+
+//HandleSkip commands
+func HandleSkip(service *cast.Service) alexa.HandlerFunc {
+	return getGenericControlFunc(service, intentSeek, func(device *castv2.Device) {
+		device.MediaController.Skip(time.Second * 10)
+	})
+}
+
+//HandleRewind commands
+func HandleRewind(service *cast.Service) alexa.HandlerFunc {
+	return getGenericControlFunc(service, intentRewind, func(device *castv2.Device) {
+		device.MediaController.Rewind(time.Second * 10)
+	})
+}
+
+//HandleQuit commands
+func HandleQuit(service *cast.Service) alexa.HandlerFunc {
+	return getGenericControlFunc(service, intentQuit, func(device *castv2.Device) {
+		device.QuitApplication(time.Second * 10)
+	})
+}
+
+//HandleSeek commands
+func HandleSeek(service *cast.Service) alexa.HandlerFunc {
 	return func(ctx context.Context, w http.ResponseWriter, r *skillserver.EchoRequest) {
-		log.Println("Got a pause intent")
-		device, err := service.GetDevice()
-		if err == nil {
-			go func() {
-				device.MediaController.Pause(time.Second * 10)
-			}()
+		seekTimeString, err := r.GetSlotValue(slotSeekTime)
+		if err != nil {
+			http.Error(w, "no seek time slot in unmarshalled alexa request", 500)
+			return
 		}
+		seekTime, err := strconv.ParseFloat(seekTimeString, 64)
+		if err != nil {
+			http.Error(w, "Failed to convert slot value for seek time to float64", 500)
+			return
+		}
+		log.Printf("Got a seek request")
+		go func() {
+			device, err := service.GetDevice()
+			if err == nil {
+
+				device.MediaController.Seek(seekTime, time.Second*10)
+			}
+		}()
 		alexaResp := skillserver.NewEchoResponse()
 		alexa.WriteResponse(w, alexaResp)
 	}
 }
 
-//HandleQuit commands
-func HandleQuit(service *cast.Service) alexa.HandlerFunc {
+func getGenericControlFunc(service *cast.Service, name string, controlCommand func(device *castv2.Device)) alexa.HandlerFunc {
 	return func(ctx context.Context, w http.ResponseWriter, r *skillserver.EchoRequest) {
-		log.Println("Got a quit intent")
-		device, err := service.GetDevice()
-		if err == nil {
-			go func() {
-				device.QuitApplication(time.Second * 10)
-			}()
-		}
+		log.Printf("Got a %s request", name)
+		go func() {
+			device, err := service.GetDevice()
+			if err == nil {
+				controlCommand(device)
+			}
+		}()
 		alexaResp := skillserver.NewEchoResponse()
 		alexa.WriteResponse(w, alexaResp)
 	}

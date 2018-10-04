@@ -18,6 +18,12 @@ const intentPause = "PauseIntent"
 const intentPlay = "PlayIntent"
 const intentMorning = "MorningIntent"
 const intentHome = "HomeIntent"
+const intentRewind = "RewindIntent"
+const intentSkip = "SkipIntent"
+const intentSeek = "SeekIntent"
+const intentClearPlaylist = "ClearPlaylistIntent"
+const intentAddToPlaylist = "AddToPlaylistIntent"
+const intentPlayNext = "AddPlayIntent"
 
 //HandleIntent deals with handling intent actions.
 func HandleIntent(conf config.Wrapper, castService *cast.Service) alexa.HandlerFunc {
@@ -27,9 +33,15 @@ func HandleIntent(conf config.Wrapper, castService *cast.Service) alexa.HandlerF
 		intentPlay:              HandlePlay(castService),
 		intentQuit:              HandleQuit(castService),
 		intentPause:             HandlePause(castService),
+		intentRewind:            HandleRewind(castService),
+		intentSkip:              HandleSkip(castService),
+		intentSeek:              HandleSeek(castService),
 		intentMorning:           HandleDefault(intentMorning),
 		intentHome:              HandleHome(intentHome, castService),
 		intentPlayYoutubeSearch: HandleSearch(conf.GoogleKey, castService),
+		intentClearPlaylist:     HandleClear(castService),
+		intentAddToPlaylist:     HandleAddToPlaylist(conf.GoogleKey, castService),
+		intentPlayNext:          HandlePlayNext(conf.GoogleKey, castService),
 	}
 	return func(ctx context.Context, w http.ResponseWriter, req *skillserver.EchoRequest) {
 		intent := req.GetIntentName()
