@@ -12,3 +12,10 @@ func WriteResponse(w http.ResponseWriter, resp *skillserver.EchoResponse) {
 	w.Header().Set("Content-Type", "application/json;charset=UTF-8")
 	w.Write(json)
 }
+
+//WriteSpeech to an echo response then pass that to the response writer.
+func WriteSpeech(w http.ResponseWriter, speech string) {
+	alexaResp := skillserver.NewEchoResponse()
+	alexaResp.OutputSpeech(speech)
+	WriteResponse(w, alexaResp)
+}

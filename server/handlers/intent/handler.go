@@ -28,7 +28,7 @@ func HandleIntent(conf config.Wrapper, castService *cast.Service) alexa.HandlerF
 		intentQuit:              HandleQuit(castService),
 		intentPause:             HandlePause(castService),
 		intentMorning:           HandleDefault(intentMorning),
-		intentHome:              HandleDefault(intentHome),
+		intentHome:              HandleHome(intentHome, castService),
 		intentPlayYoutubeSearch: HandleSearch(conf.GoogleKey, castService),
 	}
 	return func(ctx context.Context, w http.ResponseWriter, req *skillserver.EchoRequest) {

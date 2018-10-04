@@ -17,9 +17,7 @@ func HandleHome(googleKey string, service *cast.Service) alexa.HandlerFunc {
 		log.Println("Got a home intent")
 		device, err := service.GetDevice()
 		if err != nil {
-			alexaResp := skillserver.NewEchoResponse()
-			alexaResp.OutputSpeech("Sorry, we're having internal issues right now")
-			alexa.WriteResponse(w, alexaResp)
+			alexa.WriteSpeech(w, "Sorry, we're having internal issues right now")
 			return
 		}
 		id, _, err := youtube.SearchVideo(ctx, googleKey, "lofi hip hop radio")
@@ -27,8 +25,6 @@ func HandleHome(googleKey string, service *cast.Service) alexa.HandlerFunc {
 			device.PlayYoutubeVideo(id)
 		}()
 
-		alexaResp := skillserver.NewEchoResponse()
-		alexaResp.OutputSpeech("starting up")
-		alexa.WriteResponse(w, alexaResp)
+		alexa.WriteSpeech(w, "starting up")
 	}
 }

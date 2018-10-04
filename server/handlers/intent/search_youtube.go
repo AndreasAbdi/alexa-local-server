@@ -46,9 +46,7 @@ func playOnCast(videoID string, service *cast.Service) {
 }
 
 func writeHandleSearchVideoResponse(title string, w http.ResponseWriter) {
-	resp := skillserver.NewEchoResponse()
-	resp.OutputSpeech("Playing " + shortenTitle(title))
-	alexa.WriteResponse(w, resp)
+	alexa.WriteSpeech(w, "Playing "+shortenTitle(title))
 }
 
 func shortenTitle(title string) string {
