@@ -22,7 +22,12 @@ func SearchVideo(ctx context.Context, googleKey string, query string) (id string
 		return "", "", err
 	}
 
-	call := service.Search.List("id,snippet").Q(query).Type("video").MaxResults(maxResults)
+	call := service.Search.
+		List("id,snippet").
+		Q(query).
+		Type("video").
+		MaxResults(maxResults).
+		Context(ctx)
 	response, err := call.Do()
 	if err != nil {
 		return "", "", err
