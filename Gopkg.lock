@@ -3,7 +3,7 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:ae0b9d3f34c52dd22af6e5f4a57d5030ff86008fccdf4c9802f59a946d1d5283"
+  digest = "1:73baccbfbf1c9678b45c5a853b64954abd40e3ad0d785b7ed1bd390926f0e915"
   name = "github.com/AndreasAbdi/go-castv2"
   packages = [
     ".",
@@ -18,7 +18,7 @@
     "primitives",
   ]
   pruneopts = "UT"
-  revision = "cf625be065cf698354ff921bd65b817e3e24798f"
+  revision = "b5adb82c7092295dcd03a3f78bc2376dbb69febd"
 
 [[projects]]
   digest = "1:ca82a3b99694824c627573c2a76d0e49719b4a9c02d1d85a2ac91f1c1f52ab9b"
