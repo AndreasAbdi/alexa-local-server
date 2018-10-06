@@ -17,9 +17,9 @@ import (
 func HandleAlexa(conf config.Wrapper, castService *cast.Service) http.HandlerFunc {
 	alexaApp := alexa.App{
 		AppID:                   conf.AlexaAppID,
-		LaunchHandler:           handleFunc("LaunchRequest"),
+		LaunchHandler:           handleLaunch(),
 		IntentHandler:           intent.HandleIntent(conf, castService),
-		SessionEndedHandler:     handleFunc("SessionEndedRequest"),
+		SessionEndedHandler:     handleSessionEnded(),
 		AudioPlayerStateHandler: handleFunc("AudioPlayerStateChangeRequest"),
 	}
 	return alexa.HandleAlexaRequest(alexaApp)

@@ -4,7 +4,6 @@ import (
 	"context"
 	"log"
 	"net/http"
-	"strconv"
 	"time"
 
 	"github.com/AndreasAbdi/alexa-local-server/server/alexa"
@@ -65,7 +64,7 @@ func HandleSeek(service *cast.Service) alexa.HandlerFunc {
 			http.Error(w, "no seek time slot in unmarshalled alexa request", 500)
 			return
 		}
-		seekTime, err := strconv.ParseFloat(seekTimeString, 64)
+		seekTime, err := time.ParseDuration(seekTimeString)
 		if err != nil {
 			http.Error(w, "Failed to convert slot value for seek time to float64", 500)
 			return
@@ -75,7 +74,7 @@ func HandleSeek(service *cast.Service) alexa.HandlerFunc {
 			device, err := service.GetDevice()
 			if err == nil {
 
-				device.MediaController.Seek(seekTime, time.Second*10)
+				device.MediaController.Seek(seekTime.Seconds(), time.Second*10)
 			}
 		}()
 		alexaResp := skillserver.NewEchoResponse()
