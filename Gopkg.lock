@@ -3,7 +3,7 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:73baccbfbf1c9678b45c5a853b64954abd40e3ad0d785b7ed1bd390926f0e915"
+  digest = "1:11d932e6ef686b1465b687f0c345fbf4af12952b89bbf1df21e16c62b1edd85d"
   name = "github.com/AndreasAbdi/go-castv2"
   packages = [
     ".",
@@ -18,7 +18,7 @@
     "primitives",
   ]
   pruneopts = "UT"
-  revision = "b5adb82c7092295dcd03a3f78bc2376dbb69febd"
+  revision = "83e461108bc0fcb45aa51a0f6f52aef4309f9189"
 
 [[projects]]
   digest = "1:ca82a3b99694824c627573c2a76d0e49719b4a9c02d1d85a2ac91f1c1f52ab9b"
@@ -143,12 +143,12 @@
   revision = "ee5f23c4bb659287d3fddbaf1b76348d6347d221"
 
 [[projects]]
-  digest = "1:e32dfc6abff6a3633ef4d9a1022fd707c8ef26f1e1e8f855dc58dc415ce7c8f3"
+  digest = "1:53bc4cd4914cd7cd52139990d5170d6dc99067ae31c56530621b18b35fc30318"
   name = "github.com/mitchellh/mapstructure"
   packages = ["."]
   pruneopts = "UT"
-  revision = "fe40af7a9c397fa3ddba203c38a5042c5d0475ad"
-  version = "v1.1.1"
+  revision = "3536a929edddb9a5b34bd6861dc4a9647cb459fe"
+  version = "v1.1.2"
 
 [[projects]]
   digest = "1:95741de3af260a92cc5c7f3f3061e85273f5a81b5db20d4bd68da74bd521675e"
@@ -234,15 +234,15 @@
     "ipv6",
   ]
   pruneopts = "UT"
-  revision = "f5e5bdd778241bfefa8627f7124c39cd6ad8d74f"
+  revision = "146acd28ed5894421fb5aac80ca93bc1b1f46f87"
 
 [[projects]]
   branch = "master"
-  digest = "1:746ccf620ef9726c42453032e8e039860851ab5914278d24202f343a479a3073"
+  digest = "1:c2789211d4035eb0843b85958ecf7cb4a5ea91c2d4decee652c94ce898e433cb"
   name = "golang.org/x/sys"
   packages = ["unix"]
   pruneopts = "UT"
-  revision = "af653ce8b74f808d092db8ca9741fbb63d2a469d"
+  revision = "4497e2df6f9e69048a54498c7affbbec3294ad47"
 
 [[projects]]
   digest = "1:8029e9743749d4be5bc9f7d42ea1659471767860f0cdc34d37c3111bd308a295"
