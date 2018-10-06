@@ -45,10 +45,9 @@ func (s *Service) GetDevice() (*castv2.Device, error) {
 				return
 			}
 			device, err := getDevice()
-			if err != nil {
-				return
+			if err == nil {
+				s.device = device
 			}
-			s.device = device
 		}
 	}()
 	s.device = device
