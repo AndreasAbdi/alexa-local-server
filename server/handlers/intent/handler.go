@@ -23,14 +23,14 @@ const intentSkip = "SkipIntent"
 const intentSeek = "SeekIntent"
 const intentClearPlaylist = "ClearPlaylistIntent"
 const intentAddToPlaylist = "AddToPlaylistIntent"
-const intentPlayNext = "AddPlayIntent"
+const intentPlayNext = "PlayNextIntent"
 
 //these are the built in intents to deal with
-const intentFallback = "FallbackIntent"
-const intentCancel = "CancelIntent"
-const intentHelp = "HelpIntent"
-const intentStop = "StopIntent"
-const intentNext = "NextIntent"
+const intentFallback = "AMAZON.FallbackIntent"
+const intentCancel = "AMAZON.CancelIntent"
+const intentHelp = "AMAZON.HelpIntent"
+const intentStop = "AMAZON.StopIntent"
+const intentNext = "AMAZON.NextIntent"
 
 //HandleIntent deals with handling intent actions.
 func HandleIntent(conf config.Wrapper, castService *cast.Service) alexa.HandlerFunc {
@@ -48,8 +48,8 @@ func HandleIntent(conf config.Wrapper, castService *cast.Service) alexa.HandlerF
 		intentHome:              HandleHome(conf.GoogleKey, castService),
 		intentPlayYoutubeSearch: HandleSearch(conf.GoogleKey, castService),
 		intentClearPlaylist:     HandleClear(castService),
-		intentAddToPlaylist:     HandleAddToPlaylist(conf.GoogleKey, castService), //todo
-		intentPlayNext:          HandlePlayNext(conf.GoogleKey, castService),      //todo
+		intentAddToPlaylist:     HandleAddToPlaylist(conf.GoogleKey, castService),
+		intentPlayNext:          HandlePlayNext(conf.GoogleKey, castService),
 		intentFallback:          HandleFallback(),
 		intentHelp:              HandleHelp(),
 		intentStop:              HandleQuit(castService),

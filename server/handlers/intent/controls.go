@@ -16,14 +16,14 @@ const slotSeekTime = "seekTime"
 
 //HandlePlay commands
 func HandlePlay(service *cast.Service) alexa.HandlerFunc {
-	return getGenericControlFunc(service, intentClearPlaylist, func(device *castv2.Device) {
+	return getGenericControlFunc(service, intentPlay, func(device *castv2.Device) {
 		device.MediaController.Play(time.Second * 10)
 	})
 }
 
 //HandlePause commands
 func HandlePause(service *cast.Service) alexa.HandlerFunc {
-	return getGenericControlFunc(service, intentClearPlaylist, func(device *castv2.Device) {
+	return getGenericControlFunc(service, intentPause, func(device *castv2.Device) {
 		device.MediaController.Pause(time.Second * 10)
 	})
 }
