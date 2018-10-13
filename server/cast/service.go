@@ -36,20 +36,6 @@ func (s *Service) GetDevice() (*castv2.Device, error) {
 	if err != nil {
 		return device, err
 	}
-	//device keepalive
-	go func() {
-		for _ = range time.Tick(time.Second * 10) {
-			receiver := s.device.ReceiverController
-			_, err := receiver.GetStatus(time.Second * 10)
-			if err == nil {
-				return
-			}
-			device, err := getDevice()
-			if err == nil {
-				s.device = device
-			}
-		}
-	}()
 	s.device = device
 	atomic.StoreUint32(&s.initialized, 1)
 	return s.device, err
