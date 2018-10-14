@@ -11,6 +11,8 @@ const configName = ".serverconf"
 const keyServerAddress = "serverAddress"
 const keyAlexaAppID = "alexaAppID"
 const keyGoogleKey = "googleKey"
+const keyIRBlasterAddress = "irBlasterAddress"
+const keyIRBlasterPassword = "irBlasterPassword"
 
 var paths = []string{
 	"./.als",
@@ -20,9 +22,11 @@ var paths = []string{
 
 //Wrapper object of read in config.
 type Wrapper struct {
-	GoogleKey     string //key for accessing youtube/other google apis
-	AlexaAppID    string //id for the alexa application.
-	ServerAddress string //address for the server to deploy to.
+	GoogleKey         string //key for accessing youtube/other google apis
+	AlexaAppID        string //id for the alexa application.
+	ServerAddress     string //address for the server to deploy to.
+	IRBlasterAddress  string //endpoint for irblaster requests
+	IRBlasterPassword string //password for the irblaster
 }
 
 //GetConfig object from system/default values.
@@ -39,8 +43,10 @@ func GetConfig() Wrapper {
 	}
 
 	return Wrapper{
-		GoogleKey:     config.GetString(keyGoogleKey),
-		AlexaAppID:    config.GetString(keyAlexaAppID),
-		ServerAddress: config.GetString(keyServerAddress),
+		GoogleKey:         config.GetString(keyGoogleKey),
+		AlexaAppID:        config.GetString(keyAlexaAppID),
+		ServerAddress:     config.GetString(keyServerAddress),
+		IRBlasterAddress:  config.GetString(keyIRBlasterAddress),
+		IRBlasterPassword: config.GetString(keyIRBlasterPassword),
 	}
 }
