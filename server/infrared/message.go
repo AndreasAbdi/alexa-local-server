@@ -32,11 +32,12 @@ func sendMessageDefault(url *url.URL, password string, code string, deviceType s
 	}
 }
 
-//TODO: See https://github.com/mdhiggins/ESP8266-HTTP-IR-Blaster/
+//sends a json request. See https://github.com/mdhiggins/ESP8266-HTTP-IR-Blaster/
 func sendMessageJSON(url *url.URL, password string, query Query) {
 	request := req.New()
 	path := path.Join(url.Path, endpointMessage)
-	jsonRaw, err := json.Marshal(query)
+	arrayedQuery := []Query{query}
+	jsonRaw, err := json.Marshal(arrayedQuery)
 	if err != nil {
 		log.Println("Error with converting query into json", err)
 	}
