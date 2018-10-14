@@ -1,21 +1,10 @@
 package infrared
 
-import (
-	"log"
-	"path"
-
-	"github.com/imroc/req"
-)
+const tvPowerCode string = "E0E040BF"
+const tvType string = "SAMSUNG"
+const tvPowerCodeLength uint64 = 32
 
 //SwitchTvPower using ir blaster
 func (s *Service) SwitchTvPower() {
-	request := req.New()
-	s.url.Path = path.Join(s.url.Path, "msg")
-	params := req.QueryParam{
-		keyPassword: s.password,
-	}
-	_, err := request.Get(s.url.String(), params)
-	if err != nil {
-		log.Println("Error with sending switch tv power request", err)
-	}
+	sendMessageDefault(s.url, s.password, tvPowerCode, tvType, tvPowerCodeLength)
 }
