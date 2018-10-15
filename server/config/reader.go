@@ -15,8 +15,8 @@ const keyIRBlasterAddress = "irBlasterAddress"
 const keyIRBlasterPassword = "irBlasterPassword"
 
 var paths = []string{
-	"./.als",
 	"$HOME/.als",
+	"./.als",
 	".",
 }
 

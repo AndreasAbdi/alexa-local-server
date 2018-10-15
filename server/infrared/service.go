@@ -1,15 +1,25 @@
 package infrared
 
-import "net/url"
+import (
+	"net/url"
+
+	"github.com/AndreasAbdi/alexa-local-server/server/config"
+)
 
 //Service to get the device for chromecast.
 type Service struct {
-	initialized uint32
-	url         *url.URL
-	password    string
+	url      *url.URL
+	password string
 }
 
 //NewService constructor
-func NewService() *Service {
-	return &Service{}
+func NewService(config config.Wrapper) *Service {
+	urlObject, err := url.Parse(config.IRBlasterAddress)
+	if err != nil {
+		urlObject, _ = url.Parse("http://192.168.0.1") //loopback
+	}
+	return &Service{
+		url:      urlObject,
+		password: config.IRBlasterPassword,
+	}
 }

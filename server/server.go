@@ -5,6 +5,8 @@ import (
 	"net/http"
 	"sync"
 
+	"github.com/AndreasAbdi/alexa-local-server/server/infrared"
+
 	"github.com/AndreasAbdi/alexa-local-server/server/cast"
 	"github.com/AndreasAbdi/alexa-local-server/server/config"
 	handler "github.com/AndreasAbdi/alexa-local-server/server/handlers"
@@ -16,19 +18,21 @@ import (
 
 //Server is the instance of the local server to be deployed.
 type Server struct {
-	do          sync.Once
-	conf        config.Wrapper
-	castService *cast.Service
-	router      *mux.Router
+	do           sync.Once
+	conf         config.Wrapper
+	castService  *cast.Service
+	infraService *infrared.Service
+	router       *mux.Router
 }
 
 //NewServer is constructor for the server.
 func NewServer() *Server {
 	conf := config.GetConfig()
 	return &Server{
-		conf:        conf,
-		castService: cast.NewService(),
-		router:      mux.NewRouter(),
+		conf:         conf,
+		castService:  cast.NewService(),
+		infraService: infrared.NewService(conf),
+		router:       mux.NewRouter(),
 	}
 }
 
@@ -62,6 +66,7 @@ func (s *Server) routes(config config.Wrapper) {
 	s.router.HandleFunc("/test", func(w http.ResponseWriter, r *http.Request) {
 		log.Print("Test Endpoint.")
 	})
+	s.router.HandleFunc("/infra", handler.HandleInfra(s.infraService))
 
 	alexaRouter := s.router.PathPrefix("/alexa").Subrouter()
 	alexaRouter.HandleFunc("", handler.HandleAlexa(s.conf, s.castService))

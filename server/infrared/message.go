@@ -20,13 +20,14 @@ const codeSeparator = ":"
 
 func sendMessageDefault(url *url.URL, password string, code string, deviceType string, length uint64) {
 	request := req.New()
-	path := path.Join(url.Path, endpointMessage)
+	url.Path = path.Join(url.Path, endpointMessage)
 	encodedRequest := strings.Join([]string{code, deviceType, strconv.FormatUint(length, 10)}, codeSeparator)
 	params := req.QueryParam{
 		keyPassword: password,
 		keyCode:     encodedRequest,
 	}
-	_, err := request.Get(path, params)
+	log.Println(url.String())
+	_, err := request.Get(url.String(), params)
 	if err != nil {
 		log.Println("Error with sending request", err)
 	}
@@ -35,7 +36,7 @@ func sendMessageDefault(url *url.URL, password string, code string, deviceType s
 //sends a json request. See https://github.com/mdhiggins/ESP8266-HTTP-IR-Blaster/
 func sendMessageJSON(url *url.URL, password string, query Query) {
 	request := req.New()
-	path := path.Join(url.Path, endpointMessage)
+	url.Path = path.Join(url.Path, endpointMessage)
 	arrayedQuery := []Query{query}
 	jsonRaw, err := json.Marshal(arrayedQuery)
 	if err != nil {
@@ -45,7 +46,7 @@ func sendMessageJSON(url *url.URL, password string, query Query) {
 		keyPassword: password,
 		keyJSONRaw:  string(jsonRaw),
 	}
-	_, err = request.Post(path, params)
+	_, err = request.Post(url.String(), params)
 	if err != nil {
 		log.Println("Error with sending request", err)
 	}
