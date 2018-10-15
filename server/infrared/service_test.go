@@ -11,3 +11,9 @@ func TestServiceTurnOnTv(t *testing.T) {
 	service := NewService(conf)
 	service.SwitchTvPower()
 }
+
+func TestServiceTurnOnAc(t *testing.T) {
+	conf := config.GetConfig()
+	service := NewService(conf)
+	service.SetACChill()
+}
