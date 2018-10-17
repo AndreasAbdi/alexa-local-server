@@ -6,7 +6,7 @@ import (
 	"github.com/AndreasAbdi/alexa-local-server/server/cast"
 )
 
-//HandleMedia for http calls to the media endpoint
+//HandleMedia for http calls to the media endpoint. Specifically for testing chromecast endpoint.
 func HandleMedia(service *cast.Service) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		device, err := service.GetDevice()

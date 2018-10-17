@@ -19,3 +19,9 @@ func WriteSpeech(w http.ResponseWriter, speech string) {
 	alexaResp.OutputSpeech(speech)
 	WriteResponse(w, alexaResp)
 }
+
+//WriteEmpty request to the response writer.
+func WriteEmpty(w http.ResponseWriter) {
+	resp := skillserver.NewEchoResponse()
+	WriteResponse(w, resp)
+}

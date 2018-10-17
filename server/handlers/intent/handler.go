@@ -12,6 +12,11 @@ import (
 	"github.com/mikeflynn/go-alexa/skillserver"
 )
 
+//custom intents
+const intentMorning = "MorningIntent"
+const intentHome = "HomeIntent"
+const intentShutdown = "ShutdownIntent"
+
 //infrared control intents
 const intentToggleTv = "TurnOnTVIntent"
 const intentToggleSoundbar = "ToggleSoundBarIntent"
@@ -31,8 +36,7 @@ const intentPlayYoutube = "PlayYoutubeIntent"
 const intentQuit = "QuitMediaIntent"
 const intentPause = "PauseIntent"
 const intentPlay = "PlayIntent"
-const intentMorning = "MorningIntent"
-const intentHome = "HomeIntent"
+
 const intentRewind = "RewindIntent"
 const intentSkip = "SkipIntent"
 const intentSeek = "SeekIntent"
@@ -51,7 +55,7 @@ const intentNext = "AMAZON.NextIntent"
 func HandleIntent(conf config.Wrapper, castService *cast.Service, infraService *infrared.Service) alexa.HandlerFunc {
 	intentToHandler := map[string]alexa.HandlerFunc{
 		intentPlayMedia:         HandlePlayMedia(castService),
-		intentPlayYoutube:       HandleHome(conf.GoogleKey, castService),
+		intentPlayYoutube:       HandleHome(conf.GoogleKey, castService, infraService),
 		intentPlay:              HandlePlay(castService),
 		intentQuit:              HandleQuit(castService),
 		intentPause:             HandlePause(castService),
@@ -59,8 +63,9 @@ func HandleIntent(conf config.Wrapper, castService *cast.Service, infraService *
 		intentSkip:              HandleSkip(castService),
 		intentNext:              HandleSkip(castService),
 		intentSeek:              HandleSeek(castService),
-		intentMorning:           HandleHome(conf.GoogleKey, castService),
-		intentHome:              HandleHome(conf.GoogleKey, castService),
+		intentShutdown:          HandleShutdown(castService, infraService),
+		intentMorning:           HandleHome(conf.GoogleKey, castService, infraService),
+		intentHome:              HandleHome(conf.GoogleKey, castService, infraService),
 		intentPlayYoutubeSearch: HandleSearch(conf.GoogleKey, castService),
 		intentClearPlaylist:     HandleClear(castService),
 		intentAddToPlaylist:     HandleAddToPlaylist(conf.GoogleKey, castService),
