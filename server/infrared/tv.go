@@ -6,5 +6,5 @@ const tvPowerCodeLength uint64 = 32
 
 //SwitchTvPower using ir blaster
 func (s *Service) SwitchTvPower() {
-	sendMessageDefault(s.url, s.password, tvPowerCode, tvType, tvPowerCodeLength)
+	sendMessageDefault(*s.url, s.password, tvPowerCode, tvType, tvPowerCodeLength)
 }

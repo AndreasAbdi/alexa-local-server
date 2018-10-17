@@ -18,7 +18,7 @@ const keyCode = "code"
 const keyJSONRaw = "plain"
 const codeSeparator = ":"
 
-func sendMessageDefault(url *url.URL, password string, code string, deviceType string, length uint64) {
+func sendMessageDefault(url url.URL, password string, code string, deviceType string, length uint64) {
 	request := req.New()
 	url.Path = path.Join(url.Path, endpointMessage)
 	encodedRequest := strings.Join([]string{code, deviceType, strconv.FormatUint(length, 10)}, codeSeparator)
@@ -35,7 +35,7 @@ func sendMessageDefault(url *url.URL, password string, code string, deviceType s
 }
 
 //sends a json request. See https://github.com/mdhiggins/ESP8266-HTTP-IR-Blaster/
-func sendMessageJSON(url *url.URL, password string, query Query) {
+func sendMessageJSON(url url.URL, password string, query Query) {
 	request := req.New()
 	url.Path = path.Join(url.Path, endpointJSON)
 	arrayedQuery := []Query{query}

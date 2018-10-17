@@ -20,25 +20,25 @@ var codeACHeat = []uint64{9148, 4640, 520, 650, 524, 642, 532, 654, 518, 1736, 5
 //SetACOff using ir blaster
 func (s *Service) SetACOff() {
 	query := constructACMessage(codeACTurnOff)
-	sendMessageJSON(s.url, s.password, query)
+	sendMessageJSON(*s.url, s.password, query)
 }
 
 //SetACChill using ir blaster
 func (s *Service) SetACChill() {
 	query := constructACMessage(codeACChill)
-	sendMessageJSON(s.url, s.password, query)
+	sendMessageJSON(*s.url, s.password, query)
 }
 
 //SetACHeat using ir blaster
 func (s *Service) SetACHeat() {
 	query := constructACMessage(codeACHeat)
-	sendMessageJSON(s.url, s.password, query)
+	sendMessageJSON(*s.url, s.password, query)
 }
 
 //SetACFan using ir blaster
 func (s *Service) SetACFan() {
 	query := constructACMessage(codeACFan)
-	sendMessageJSON(s.url, s.password, query)
+	sendMessageJSON(*s.url, s.password, query)
 }
 
 func constructACMessage(code []uint64) Query {
