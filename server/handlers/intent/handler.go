@@ -4,12 +4,27 @@ import (
 	"context"
 	"net/http"
 
+	"github.com/AndreasAbdi/alexa-local-server/server/infrared"
+
 	"github.com/AndreasAbdi/alexa-local-server/server/alexa"
 	"github.com/AndreasAbdi/alexa-local-server/server/cast"
 	"github.com/AndreasAbdi/alexa-local-server/server/config"
 	"github.com/mikeflynn/go-alexa/skillserver"
 )
 
+//infrared control intents
+const intentToggleTv = "TurnOnTVIntent"
+const intentToggleSoundbar = "ToggleSoundBarIntent"
+const intentMuteSoundbar = "MuteSoundBarIntent"
+const intentIncreaseVolume = "IncreaseVolumeSoundBarIntent"
+const intentDecreaseVolume = "DecreateVolumeSoundBarIntent"
+const intentACTurnOn = "TurnOnACIntent"
+const intentACTurnOff = "TurnOffACIntent"
+const intentSwitchToFanAC = "TurnFanACIntent"
+const intentSwitchToChillAC = "TurnChillACIntent"
+const intentSwitchToHeatAC = "TurnHeatACIntent"
+
+//general youtube and media intents
 const intentPlayMedia = "PlayMediaIntent"
 const intentPlayYoutubeSearch = "PlayYoutubeSearchIntent"
 const intentPlayYoutube = "PlayYoutubeIntent"
@@ -33,7 +48,7 @@ const intentStop = "AMAZON.StopIntent"
 const intentNext = "AMAZON.NextIntent"
 
 //HandleIntent deals with handling intent actions.
-func HandleIntent(conf config.Wrapper, castService *cast.Service) alexa.HandlerFunc {
+func HandleIntent(conf config.Wrapper, castService *cast.Service, infraService *infrared.Service) alexa.HandlerFunc {
 	intentToHandler := map[string]alexa.HandlerFunc{
 		intentPlayMedia:         HandlePlayMedia(castService),
 		intentPlayYoutube:       HandleHome(conf.GoogleKey, castService),
@@ -54,6 +69,16 @@ func HandleIntent(conf config.Wrapper, castService *cast.Service) alexa.HandlerF
 		intentHelp:              HandleHelp(),
 		intentStop:              HandleQuit(castService),
 		intentCancel:            HandleQuit(castService),
+		intentToggleTv:          HandleTVSwitch(infraService),
+		intentToggleSoundbar:    HandleSoundBarSwitch(infraService),
+		intentMuteSoundbar:      HandleSoundBarMute(infraService),
+		intentIncreaseVolume:    HandleSoundBarIncreaseVolume(infraService),
+		intentDecreaseVolume:    HandleSoundBarDecreaseVolume(infraService),
+		intentACTurnOn:          HandleACTurnOn(infraService),
+		intentACTurnOff:         HandleACTurnOff(infraService),
+		intentSwitchToChillAC:   HandleACSwitchToChill(infraService),
+		intentSwitchToFanAC:     HandleACSwitchToFan(infraService),
+		intentSwitchToHeatAC:    HandleACSwitchToHeat(infraService),
 	}
 	return func(ctx context.Context, w http.ResponseWriter, req *skillserver.EchoRequest) {
 		intent := req.GetIntentName()

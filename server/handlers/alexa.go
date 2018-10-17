@@ -5,6 +5,8 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/AndreasAbdi/alexa-local-server/server/infrared"
+
 	"github.com/AndreasAbdi/alexa-local-server/server/handlers/intent"
 
 	"github.com/AndreasAbdi/alexa-local-server/server/alexa"
@@ -14,11 +16,11 @@ import (
 )
 
 //HandleAlexa for alexa http requests
-func HandleAlexa(conf config.Wrapper, castService *cast.Service) http.HandlerFunc {
+func HandleAlexa(conf config.Wrapper, castService *cast.Service, infraService *infrared.Service) http.HandlerFunc {
 	alexaApp := alexa.App{
 		AppID:                   conf.AlexaAppID,
 		LaunchHandler:           handleLaunch(),
-		IntentHandler:           intent.HandleIntent(conf, castService),
+		IntentHandler:           intent.HandleIntent(conf, castService, infraService),
 		SessionEndedHandler:     handleSessionEnded(),
 		AudioPlayerStateHandler: handleFunc("AudioPlayerStateChangeRequest"),
 	}
