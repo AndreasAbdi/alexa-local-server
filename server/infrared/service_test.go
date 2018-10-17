@@ -1,5 +1,3 @@
-// +build local
-
 package infrared
 
 import (
@@ -9,13 +7,19 @@ import (
 )
 
 func TestServiceTurnOnTv(t *testing.T) {
-	conf := config.GetConfig()
+	conf := config.Wrapper{
+		IRBlasterAddress:  "http://sometestaddress.com",
+		IRBlasterPassword: "somefakepassword",
+	}
 	service := NewService(conf)
 	service.SwitchTvPower()
 }
 
-func TestServiceTurnOnAc(t *testing.T) {
-	conf := config.GetConfig()
+func TestServiceTurnOnSoundBar(t *testing.T) {
+	conf := config.Wrapper{
+		IRBlasterAddress:  "http://sometestaddress.com",
+		IRBlasterPassword: "somefakepassword",
+	}
 	service := NewService(conf)
-	service.SetACChill()
+	service.SwitchSoundboxPower()
 }
