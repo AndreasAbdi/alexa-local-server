@@ -1,0 +1,33 @@
+{
+  "manifest": {
+    "publishingInformation": {
+      "locales": {
+        "en-US": {
+          "name": "server_skill"
+        },
+        "en-CA": {
+          "name": "server_skill"
+        },
+        "en-IN": {
+          "name": "server_skill"
+        },
+        "en-AU": {
+          "name": "server_skill"
+        },
+        "en-GB": {
+          "name": "server_skill"
+        }
+      }
+    },
+    "apis": {
+      "custom": {
+        "endpoint": {
+          "sslCertificateType": "Wildcard",
+          "uri": "test_endpoint"
+        },
+        "interfaces": []
+      }
+    },
+    "manifestVersion": "1.0"
+  }
+}
