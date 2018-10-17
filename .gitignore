@@ -16,3 +16,6 @@
 
 #Ignore go deps vendor path
 vendor/
+
+#Ignore the generated alexa skill.
+server_skill/
