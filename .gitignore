@@ -17,5 +17,6 @@
 #Ignore go deps vendor path
 vendor/
 
-#Ignore the generated alexa skill.
+#Ignore the generated alexa skill and other generate files. 
 server_skill/
+.serverconf.json
