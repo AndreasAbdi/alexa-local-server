@@ -134,7 +134,9 @@
             "turn the tv on",
             "turn on the television",
             "turn on the tv",
+            "turn tv on",
             "turn off",
+            "turn tv off",
             "shut down",
             "turn the tv off",
             "turn off the television",
@@ -148,8 +150,10 @@
             "turn the sound bar on",
             "turn on the speaker",
             "turn on speaker",
+            "turn speak on",
             "turn off the sound bar",
             "turn off speaker",
+            "turn speaker off",
             "turn the sound bar off"
           ]
         },
@@ -186,6 +190,7 @@
             "turn off the AC",
             "turn AC off",
             "set AC off",
+            "turn off AC",
             "off the AC",
             "kill the AC"
           ]
@@ -196,6 +201,7 @@
             "turn on the AC",
             "turn AC on",
             "set AC on",
+            "turn on AC",
             "on the AC",
             "give life to the AC",
             "revive the AC"
