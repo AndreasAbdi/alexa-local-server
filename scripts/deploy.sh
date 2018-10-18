@@ -29,7 +29,7 @@ get_ngrok_url() {
 }
 
 set_ngrok_address_to_skill() {
-    grep -rl --exclude-dir=server_skill_template --exclude-dir=.git --exclude-dir=vendor "\"uri\"\:" | xargs sed -i "s|\"uri\"\: \".*\"|\"uri\"\: \"https:\/\/$1\"|g"
+    grep -rl --exclude-dir=server_skill_template --exclude-dir=.git --exclude-dir=vendor "\"uri\"\:" | xargs sed -i "s|\"uri\"\: \".*\"|\"uri\"\: \"https:\/\/$1\/alexa\"|g"
 }
 
 build_skill() {

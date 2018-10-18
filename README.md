@@ -20,7 +20,7 @@ This is a server for local control of different components in my house. Controls
     - The IRFunctionality is based on an [ir blaster arduino endpoint.](https://github.com/mdhiggins/ESP8266-HTTP-IR-Blaster/). Not really mandatory to input.
     - Google Key is the google API key with the values to access youtube api. (Youtube Data API V3)
 
-3. Run `./deploy.sh`
+3. Run `./scripts/deploy.sh`
 
 4. Tell alexa to do things like
 
@@ -28,7 +28,7 @@ This is a server for local control of different components in my house. Controls
     - `alexa, tell local server to pause`
     - `alexa, tell local server i'm home`
 
-5. Terminate by running the `./kill.sh` script.
+5. Terminate by running the `./scripts/kill.sh` script.
 
 ## Notes
 
