@@ -37,6 +37,9 @@ const intentQuit = "QuitMediaIntent"
 const intentPause = "PauseIntent"
 const intentPlay = "PlayIntent"
 
+//for resetting chromecast device linkage.
+const intentResetDevice = "ResetIntent"
+
 const intentRewind = "RewindIntent"
 const intentSkip = "SkipIntent"
 const intentSeek = "SeekIntent"
@@ -72,6 +75,7 @@ func HandleIntent(conf config.Wrapper, castService *cast.Service, infraService *
 		intentPlayNext:          HandlePlayNext(conf.GoogleKey, castService),
 		intentFallback:          HandleFallback(),
 		intentHelp:              HandleHelp(),
+		intentResetDevice:       HandleReset(castService),
 		intentStop:              HandleQuit(castService),
 		intentCancel:            HandleQuit(castService),
 		intentToggleTv:          HandleTVSwitch(infraService),

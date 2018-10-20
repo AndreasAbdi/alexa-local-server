@@ -29,16 +29,12 @@ func (s *Service) GetDevice() (*castv2.Device, error) {
 		return s.device, nil
 	}
 
-	s.mutex.Lock()
-	defer s.mutex.Unlock()
+	return s.setDevice()
+}
 
-	device, err := getDevice()
-	if err != nil {
-		return device, err
-	}
-	s.device = device
-	atomic.StoreUint32(&s.initialized, 1)
-	return s.device, err
+//Reset the service.
+func (s *Service) Reset() {
+	s.setDevice()
 }
 
 // NoChromecastError describing that there was no chromecast to find.
@@ -56,4 +52,17 @@ func getDevice() (*castv2.Device, error) {
 		return device, nil
 	}
 	return nil, &NoChromecastError{}
+}
+
+func (s *Service) setDevice() (*castv2.Device, error) {
+	s.mutex.Lock()
+	defer s.mutex.Unlock()
+
+	device, err := getDevice()
+	if err != nil {
+		return nil, err
+	}
+	s.device = device
+	atomic.StoreUint32(&s.initialized, 1)
+	return device, nil
 }

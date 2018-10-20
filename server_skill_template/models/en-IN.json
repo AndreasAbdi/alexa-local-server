@@ -316,8 +316,7 @@
             "play again",
             "go back to the start",
             "play the video again",
-            "restart",
-            "reset",
+            "restart the video",
             "rewind",
             "rewind the video",
             "reset the video"
@@ -332,6 +331,7 @@
             "go to the next one",
             "play the next video",
             "play the next one",
+            "play next video",
             "Go to the next video"
           ]
         },
@@ -353,6 +353,20 @@
             }
           ],
           "samples": []
+        },
+        {
+          "name": "ResetIntent",
+          "samples": [
+            "reset the device",
+            "reset",
+            "startover",
+            "restart",
+            "please restart",
+            "switch devices",
+            "set the device up",
+            "reset chromecast",
+            "restart chromecast"
+          ]
         },
         {
           "name": "ClearPlaylistIntent",
