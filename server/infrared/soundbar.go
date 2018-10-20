@@ -9,20 +9,20 @@ const soundBarDecreaseSoundCode string = "34346897"
 
 //SwitchSoundboxPower using ir blaster
 func (s *Service) SwitchSoundboxPower() {
-	sendMessageDefault(*s.url, s.password, soundBarPowerCode, soundBarType, tvPowerCodeLength)
+	sendMessageDefault(*s.url, s.password, soundBarPowerCode, soundBarType, tvPowerCodeLength, nil)
 }
 
 //VolumeDecreaseSoundbox using ir blaster
-func (s *Service) VolumeDecreaseSoundbox() {
-	sendMessageDefault(*s.url, s.password, soundBarDecreaseSoundCode, soundBarType, tvPowerCodeLength)
+func (s *Service) VolumeDecreaseSoundbox(increaseBy uint64) {
+	sendMessageDefault(*s.url, s.password, soundBarDecreaseSoundCode, soundBarType, tvPowerCodeLength, &increaseBy)
 }
 
 //VolumeIncreaseSoundbox using ir blaster
-func (s *Service) VolumeIncreaseSoundbox() {
-	sendMessageDefault(*s.url, s.password, soundBarIncreaseSoundCode, soundBarType, tvPowerCodeLength)
+func (s *Service) VolumeIncreaseSoundbox(decreaseBy uint64) {
+	sendMessageDefault(*s.url, s.password, soundBarIncreaseSoundCode, soundBarType, tvPowerCodeLength, &decreaseBy)
 }
 
 //MuteSoundbox using ir blaster
 func (s *Service) MuteSoundbox() {
-	sendMessageDefault(*s.url, s.password, soundBarMuteCode, soundBarType, tvPowerCodeLength)
+	sendMessageDefault(*s.url, s.password, soundBarMuteCode, soundBarType, tvPowerCodeLength, nil)
 }

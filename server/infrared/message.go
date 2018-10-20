@@ -16,15 +16,19 @@ const endpointJSON = "json"
 const keyPassword = "pass"
 const keyCode = "code"
 const keyJSONRaw = "plain"
+const keyRepeat = "repeat"
 const codeSeparator = ":"
 
-func sendMessageDefault(url url.URL, password string, code string, deviceType string, length uint64) {
+func sendMessageDefault(url url.URL, password string, code string, deviceType string, length uint64, repeat *uint64) {
 	request := req.New()
 	url.Path = path.Join(url.Path, endpointMessage)
 	encodedRequest := strings.Join([]string{code, deviceType, strconv.FormatUint(length, 10)}, codeSeparator)
 	params := req.QueryParam{
 		keyPassword: password,
 		keyCode:     encodedRequest,
+	}
+	if repeat != nil {
+		params[keyRepeat] = *repeat
 	}
 	endpoint := url.String()
 	log.Print(endpoint)
