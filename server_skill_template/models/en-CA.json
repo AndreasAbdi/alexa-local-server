@@ -66,6 +66,7 @@
         {
           "name": "HomeIntent",
           "samples": [
+            "initialize",
             "im home",
             "i'm home",
             "i am home",
@@ -134,9 +135,7 @@
             "turn the tv on",
             "turn on the television",
             "turn on the tv",
-            "turn tv on",
             "turn off",
-            "turn tv off",
             "shut down",
             "turn the tv off",
             "turn off the television",
@@ -150,10 +149,8 @@
             "turn the sound bar on",
             "turn on the speaker",
             "turn on speaker",
-            "turn speak on",
             "turn off the sound bar",
             "turn off speaker",
-            "turn speaker off",
             "turn the sound bar off"
           ]
         },
@@ -167,7 +164,17 @@
         },
         {
           "name": "IncreaseVolumeSoundBarIntent",
+          "slots": [
+            {
+              "name": "volumeDelta",
+              "type": "AMAZON.NUMBER"
+            }
+          ],
           "samples": [
+            "volume increase {volumeDelta}",
+            "increase volume {volumeDelta}",
+            "up the volume by {volumeDelta}",
+            "increase the volume by {volumeDelta}",
             "increase the volume",
             "up the volume",
             "be louder",
@@ -176,7 +183,18 @@
         },
         {
           "name": "DecreaseVolumeSoundBarIntent",
+          "slots": [
+            {
+              "name": "volumeDelta",
+              "type": "AMAZON.NUMBER"
+            }
+          ],
           "samples": [
+            "lower volume {volumeDelta}",
+            "lower the volume by {volumeDelta}",
+            "decrease the volume by {volumeDelta}",
+            "decrease the volume {volumeDelta}",
+            "volume decrease {volumeDelta}",
             "decrease the volume",
             "lower the volume",
             "lower volume",
@@ -190,7 +208,6 @@
             "turn off the AC",
             "turn AC off",
             "set AC off",
-            "turn off AC",
             "off the AC",
             "kill the AC"
           ]
@@ -201,7 +218,6 @@
             "turn on the AC",
             "turn AC on",
             "set AC on",
-            "turn on AC",
             "on the AC",
             "give life to the AC",
             "revive the AC"
@@ -491,6 +507,18 @@
               "prompts": {
                 "elicitation": "Elicit.Slot.403416404521.1329256881605"
               }
+            }
+          ]
+        },
+        {
+          "name": "IncreaseVolumeSoundBarIntent",
+          "confirmationRequired": false,
+          "slots": [
+            {
+              "name": "volumeDelta",
+              "type": "AMAZON.NUMBER",
+              "elicitationRequired": false,
+              "confirmationRequired": false
             }
           ]
         }
