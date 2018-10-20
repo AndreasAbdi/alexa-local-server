@@ -2,9 +2,8 @@
 
 
 [[projects]]
-  branch = "master"
-  digest = "1:11d932e6ef686b1465b687f0c345fbf4af12952b89bbf1df21e16c62b1edd85d"
-  name = "github.com/AndreasAbdi/go-castv2"
+  digest = "1:93e2a68a02539cc7256b631b3f46e7f8fb4d2c42b3e30a616a525051c7cea298"
+  name = "github.com/AndreasAbdi/gochromecast"
   packages = [
     ".",
     "api",
@@ -18,15 +17,16 @@
     "primitives",
   ]
   pruneopts = "UT"
-  revision = "83e461108bc0fcb45aa51a0f6f52aef4309f9189"
+  revision = "700dddc0dea795e3b717535a35ac498194be46a6"
+  version = "0.1.0"
 
 [[projects]]
-  digest = "1:ca82a3b99694824c627573c2a76d0e49719b4a9c02d1d85a2ac91f1c1f52ab9b"
+  digest = "1:af43bdaaf86655a2343f113e9b293bbc16b12099eaeb223982bbe4d4c22ba14d"
   name = "github.com/fatih/structs"
   packages = ["."]
   pruneopts = "UT"
-  revision = "a720dfa8df582c51dee1b36feabb906bde1588bd"
-  version = "v1.0"
+  revision = "4966fc68f5b7593aafa6cbbba2d65ec6e1416047"
+  version = "v1.1.0"
 
 [[projects]]
   digest = "1:abeb38ade3f32a92943e5be54f55ed6d6e3b6602761d74b4aab4c9dd45c18abd"
@@ -285,8 +285,9 @@
   analyzer-name = "dep"
   analyzer-version = 1
   input-imports = [
-    "github.com/AndreasAbdi/go-castv2",
+    "github.com/AndreasAbdi/gochromecast",
     "github.com/gorilla/mux",
+    "github.com/imroc/req",
     "github.com/mikeflynn/go-alexa/skillserver",
     "github.com/spf13/viper",
     "github.com/urfave/negroni",

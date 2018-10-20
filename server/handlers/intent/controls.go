@@ -8,7 +8,7 @@ import (
 
 	"github.com/AndreasAbdi/alexa-local-server/server/alexa"
 	"github.com/AndreasAbdi/alexa-local-server/server/cast"
-	castv2 "github.com/AndreasAbdi/go-castv2"
+	gocast "github.com/AndreasAbdi/gochromecast"
 	"github.com/mikeflynn/go-alexa/skillserver"
 )
 
@@ -16,42 +16,42 @@ const slotSeekTime = "seekTime"
 
 //HandlePlay commands
 func HandlePlay(service *cast.Service) alexa.HandlerFunc {
-	return getGenericControlFunc(service, intentPlay, func(device *castv2.Device) {
+	return getGenericControlFunc(service, intentPlay, func(device *gocast.Device) {
 		device.MediaController.Play(time.Second * 10)
 	})
 }
 
 //HandlePause commands
 func HandlePause(service *cast.Service) alexa.HandlerFunc {
-	return getGenericControlFunc(service, intentPause, func(device *castv2.Device) {
+	return getGenericControlFunc(service, intentPause, func(device *gocast.Device) {
 		device.MediaController.Pause(time.Second * 10)
 	})
 }
 
 //HandleClear comamnds
 func HandleClear(service *cast.Service) alexa.HandlerFunc {
-	return getGenericControlFunc(service, intentClearPlaylist, func(device *castv2.Device) {
+	return getGenericControlFunc(service, intentClearPlaylist, func(device *gocast.Device) {
 		device.YoutubeController.ClearPlaylist()
 	})
 }
 
 //HandleSkip commands
 func HandleSkip(service *cast.Service) alexa.HandlerFunc {
-	return getGenericControlFunc(service, intentSeek, func(device *castv2.Device) {
+	return getGenericControlFunc(service, intentSeek, func(device *gocast.Device) {
 		device.MediaController.Skip(time.Second * 10)
 	})
 }
 
 //HandleRewind commands
 func HandleRewind(service *cast.Service) alexa.HandlerFunc {
-	return getGenericControlFunc(service, intentRewind, func(device *castv2.Device) {
+	return getGenericControlFunc(service, intentRewind, func(device *gocast.Device) {
 		device.MediaController.Rewind(time.Second * 10)
 	})
 }
 
 //HandleQuit commands
 func HandleQuit(service *cast.Service) alexa.HandlerFunc {
-	return getGenericControlFunc(service, intentQuit, func(device *castv2.Device) {
+	return getGenericControlFunc(service, intentQuit, func(device *gocast.Device) {
 		device.QuitApplication(time.Second * 10)
 	})
 }
@@ -82,7 +82,7 @@ func HandleSeek(service *cast.Service) alexa.HandlerFunc {
 	}
 }
 
-func getGenericControlFunc(service *cast.Service, name string, controlCommand func(device *castv2.Device)) alexa.HandlerFunc {
+func getGenericControlFunc(service *cast.Service, name string, controlCommand func(device *gocast.Device)) alexa.HandlerFunc {
 	return func(ctx context.Context, w http.ResponseWriter, r *skillserver.EchoRequest) {
 		log.Printf("Got a %s request", name)
 		go func() {

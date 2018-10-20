@@ -8,7 +8,7 @@ import (
 	"github.com/AndreasAbdi/alexa-local-server/server/alexa"
 	"github.com/AndreasAbdi/alexa-local-server/server/cast"
 	"github.com/AndreasAbdi/alexa-local-server/server/youtube"
-	castv2 "github.com/AndreasAbdi/go-castv2"
+	gocast "github.com/AndreasAbdi/gochromecast"
 	"github.com/mikeflynn/go-alexa/skillserver"
 )
 
@@ -16,26 +16,26 @@ const slotSearchQuery = "searchQuery"
 
 //HandlePlayNext returns a function handler for alexa requests that adds a video to the youtube playlist.
 func HandlePlayNext(googleKey string, service *cast.Service) alexa.HandlerFunc {
-	return genericSearch(googleKey, service, func(id string, device *castv2.Device) {
+	return genericSearch(googleKey, service, func(id string, device *gocast.Device) {
 		device.YoutubeController.PlayNext(id)
 	})
 }
 
 //HandleAddToPlaylist returns a function handler for alexa requests that adds a video to the youtube playlist.
 func HandleAddToPlaylist(googleKey string, service *cast.Service) alexa.HandlerFunc {
-	return genericSearch(googleKey, service, func(id string, device *castv2.Device) {
+	return genericSearch(googleKey, service, func(id string, device *gocast.Device) {
 		device.YoutubeController.AddToQueue(id)
 	})
 }
 
 //HandleSearch returns a function handler for alexa requests
 func HandleSearch(googleKey string, service *cast.Service) alexa.HandlerFunc {
-	return genericSearch(googleKey, service, func(id string, device *castv2.Device) {
+	return genericSearch(googleKey, service, func(id string, device *gocast.Device) {
 		device.PlayYoutubeVideo(id)
 	})
 }
 
-func genericSearch(googleKey string, service *cast.Service, command func(string, *castv2.Device)) alexa.HandlerFunc {
+func genericSearch(googleKey string, service *cast.Service, command func(string, *gocast.Device)) alexa.HandlerFunc {
 	return func(ctx context.Context, w http.ResponseWriter, r *skillserver.EchoRequest) {
 		query, err := r.GetSlotValue(slotSearchQuery)
 		if err != nil {
