@@ -12,7 +12,7 @@ DEPRUN=$(DEPCMD) ensure
 BINARY_NAME=alexa_local_server
 BUILD_DIRECTORY=bin
 BINARY_PATH=$(BUILD_DIRECTORY)/$(BINARY_NAME)
-
+APP_PATH=./cmd/alexa_local_server
 all: clean build test run
 run: build
 	./$(BINARY_PATH)
@@ -23,10 +23,10 @@ full_build: deps build
 deps:
 	$(DEPRUN)
 build: format
-	$(GOBUILD) -o $(BINARY_PATH) ./cmd/alexa_local_server
+	$(GOBUILD) -o $(BINARY_PATH) $(APP_PATH)
 # Build static image with no outwards deps. 
 build_static:
-	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 $(GOBUILD) -a -installsuffix nocgo -ldflags '-w -extldflags "-static"' -o $(BINARY_PATH) -v .
+	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 $(GOBUILD) -a -installsuffix nocgo -ldflags '-w -extldflags "-static"' -o $(BINARY_PATH) -v $(APP_PATH)
 docker_build:
 	docker build -t aa/alexa-local-server .
 
