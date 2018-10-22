@@ -124,23 +124,23 @@
   version = "v1.8.0"
 
 [[projects]]
-  digest = "1:fc5013a7a6f9600051ad48b059fef4a3035e8692d1c54ffd8dccfaa8ebe0b505"
+  digest = "1:c22d250c583ec1136ecad8b74a43f408c08ddbbcbae715341ec4a49f332628e0"
   name = "github.com/miekg/dns"
   packages = ["."]
   pruneopts = "UT"
-  revision = "ba6747e8a94115e9dc7738afb87850687611df1b"
-  version = "v1.0.12"
+  revision = "915ca3d5ffd945235828a097c917311a9d86ebb4"
+  version = "v1.0.14"
 
 [[projects]]
   branch = "master"
-  digest = "1:df556bda10deaf1dfd3a6d6d7e9038e9b143a623608ed793aa2f4129e4b97675"
+  digest = "1:ae36d3b659d61999bf07ac14ac92e7fb400df774a597bd5fce5ff9c10adbbf20"
   name = "github.com/mikeflynn/go-alexa"
   packages = [
     "skillserver",
     "skillserver/dialog",
   ]
   pruneopts = "UT"
-  revision = "ee5f23c4bb659287d3fddbaf1b76348d6347d221"
+  revision = "f347a0b229a6728225c4e3926b5108fefa244356"
 
 [[projects]]
   digest = "1:53bc4cd4914cd7cd52139990d5170d6dc99067ae31c56530621b18b35fc30318"
@@ -218,11 +218,11 @@
     "ed25519/internal/edwards25519",
   ]
   pruneopts = "UT"
-  revision = "e3636079e1a4c1f337f212cc5cd2aca108f6c900"
+  revision = "0c41d7ab0a0ee717d4590a44bcb987dfd9e183eb"
 
 [[projects]]
   branch = "master"
-  digest = "1:bec9fee9f0fc9b6f8cbcd4a7e2d80036829079f0aaccc28776510b18ec5f0dc5"
+  digest = "1:3fbae1c0c675eed671d79db72a7f1211f3530c15d7ad828accd9d9e22e992b2d"
   name = "golang.org/x/net"
   packages = [
     "bpf",
@@ -234,15 +234,15 @@
     "ipv6",
   ]
   pruneopts = "UT"
-  revision = "146acd28ed5894421fb5aac80ca93bc1b1f46f87"
+  revision = "04a2e542c03f1d053ab3e4d6e5abcd4b66e2be8e"
 
 [[projects]]
   branch = "master"
-  digest = "1:c2789211d4035eb0843b85958ecf7cb4a5ea91c2d4decee652c94ce898e433cb"
+  digest = "1:be4f165c438aa39318fd5c8c180a95f4a52524641c0b714638b0fd9fd912b38d"
   name = "golang.org/x/sys"
   packages = ["unix"]
   pruneopts = "UT"
-  revision = "4497e2df6f9e69048a54498c7affbbec3294ad47"
+  revision = "8e24a49d80f82323e1c4db1b5da3e0f31171a151"
 
 [[projects]]
   digest = "1:8029e9743749d4be5bc9f7d42ea1659471767860f0cdc34d37c3111bd308a295"
@@ -261,7 +261,7 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:4a10599027a01143103814efb6d62313d1a1b7f7b493c4504b241bf8272e123e"
+  digest = "1:448a1aa053c3058c6372f056589d1fdeece2a1e05c3ce2cba9057fa48ba36b0b"
   name = "google.golang.org/api"
   packages = [
     "gensupport",
@@ -271,7 +271,7 @@
     "youtube/v3",
   ]
   pruneopts = "UT"
-  revision = "f5c49d98d21cc639f7ba8c7e4b127e88ee2af7ed"
+  revision = "7fb5a8353b60cae0caa99dd43cd047af9ed6476c"
 
 [[projects]]
   digest = "1:342378ac4dcb378a5448dd723f0784ae519383532f5e70ade24132c4c8693202"
