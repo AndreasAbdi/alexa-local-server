@@ -13,11 +13,12 @@ BINARY_NAME=alexa_local_server
 BUILD_DIRECTORY=bin
 BINARY_PATH=$(BUILD_DIRECTORY)/$(BINARY_NAME)
 APP_PATH=./cmd/alexa_local_server
+BUILD_CONFIG_DIRECTORY=build
+DOCKER_BUILD_FILE=$(BUILD_CONFIG_DIRECTORY)/Dockerfile
 all: clean build test run
 run: build
 	./$(BINARY_PATH)
 full: full_clean full_build
-
 
 full_build: deps build 
 deps:
@@ -28,7 +29,7 @@ build: format
 build_static:
 	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 $(GOBUILD) -a -installsuffix nocgo -ldflags '-w -extldflags "-static"' -o $(BINARY_PATH) -v $(APP_PATH)
 docker_build:
-	docker build -t aa/alexa-local-server .
+	docker build -t aa/alexa-local-server -f $(DOCKER_BUILD_FILE) .
 
 test:
 	$(GOTEST) -v ./...
