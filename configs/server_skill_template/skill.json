@@ -23,7 +23,7 @@
       "custom": {
         "endpoint": {
           "sslCertificateType": "Wildcard",
-          "uri": "b0e11221.ngrok.io"
+          "uri": "https://9475cfbd.ngrok.io/alexa"
         },
         "interfaces": []
       }
