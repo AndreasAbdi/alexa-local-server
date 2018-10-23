@@ -1,3 +1,8 @@
+/*
+A server for controlling a variety of smart home devices.
+
+Current build is for personal use, manipulate at will for your use case.
+*/
 package main
 
 import (
