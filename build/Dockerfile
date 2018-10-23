@@ -10,9 +10,11 @@ WORKDIR $GOPATH/src/github.com/AndreasAbdi/alexa-local-server
 COPY Gopkg.toml Gopkg.lock ./
 RUN dep ensure --vendor-only
 COPY . ./
+COPY ./.serverconf.json /.serverconf.json
 RUN make build_static BINARY_PATH=/main
 
 FROM scratch
 COPY --from=builder /main /app/
+COPY --from=builder /.serverconf.json /app/
 WORKDIR /app
 CMD ["./main"]

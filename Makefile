@@ -15,9 +15,12 @@ BINARY_PATH=$(BUILD_DIRECTORY)/$(BINARY_NAME)
 APP_PATH=./cmd/alexa_local_server
 BUILD_CONFIG_DIRECTORY=build
 DOCKER_BUILD_FILE=$(BUILD_CONFIG_DIRECTORY)/Dockerfile
+
 all: clean build test run
 run: build
 	./$(BINARY_PATH)
+docker_deploy:
+	docker run -d -p 8000:8000 aa/alexa_local_server
 full: full_clean full_build
 
 full_build: deps build 
