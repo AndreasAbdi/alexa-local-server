@@ -11,6 +11,15 @@ This is a server for local control of different components in my house. Controls
 
 ## Instructions
 
+### Build
+
+Running `make build` will generate a binary in the folder `${project_directory}/bin/`. This can be deployed via running `./bin_name`.
+
+Deploying via docker is possible. Running `make docker_build` will build an image with the name `aa/alexa-local-server`.
+That image can then be used via running `docker run -d -p 8000:8000 aa/alexa-local-server`
+
+### Deployment
+
 1. [Install the Alexa CLI.](https://developer.amazon.com/docs/smapi/quick-start-alexa-skills-kit-command-line-interface.html)
 
 2. modify the .serverconf.json.template with appropriate config values.
@@ -37,6 +46,10 @@ config file named `.serverconf.json` is read in the following order from
 - the current directory of the application,
 - a directory called `.als` in the current
 - a directory called `.als` in the user's home directory
+
+## Images
+
+![Image of tv/sound bar turning on and a youtube stream loading](https://raw.githubusercontent.com/AndreasAbdi/alexa-local-server/master/configs/startup.gif)
 
 ## References
 
