@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/AndreasAbdi/alexa-local-server/server"
+	"github.com/AndreasAbdi/alexa-local-server/internal/server"
 )
 
 func main() {
