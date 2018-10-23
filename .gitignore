@@ -23,4 +23,4 @@ vendor/
 #Ignore the generated alexa skill and other generate files. 
 server_skill/
 configs/server_skill/
-.serverconf.json
+configs/.serverconf.json

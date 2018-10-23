@@ -18,6 +18,7 @@ var paths = []string{
 	"$HOME/.als",
 	"./.als",
 	".",
+	"./configs",
 }
 
 //Wrapper object of read in config.

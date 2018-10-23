@@ -1,7 +1,7 @@
 {
     "alexaAppID": "", 
     "serverAddress": ":8000",
-    "googleKey": "",
     "irBlasterAddress": "",
+    "googleKey": "",
     "irBlasterPassword": ""
 }

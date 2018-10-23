@@ -5,6 +5,8 @@ PROJ_DIR=$(pwd)
 CONFIG_DIR=${PROJ_DIR}/configs
 TEMPLATE_DIR=${CONFIG_DIR}/server_skill_template
 SKILL_DIR=${CONFIG_DIR}/server_skill
+CONFIG_FILE=${CONFIG_DIR}/.serverconf.json
+CONFIG_FILE_TEMPLATE=${CONFIG_DIR}/.serverconf.json.template
 
 deploy_server() {
     bash -c "exec -a localserver make > /dev/null &"
@@ -19,11 +21,11 @@ get_skill_id() {
 
 modify_server_config() {
     local skill_id=$1 
-    sed -i "s|\"alexaAppID\"\: \".*\"|\"alexaAppID\"\: \"$1\"|g" ${PROJ_DIR}/.serverconf.json
+    sed -i "s|\"alexaAppID\"\: \".*\"|\"alexaAppID\"\: \"$1\"|g" ${CONFIG_FILE}
 }
 
 build_server_config() {
-    cp ${PROJ_DIR}/.serverconf.json.template ${PROJ_DIR}/.serverconf.json
+    cp ${CONFIG_FILE_TEMPLATE} ${CONFIG_FILE}
 }
 
 deploy_ngrok() {
