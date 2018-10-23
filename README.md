@@ -49,7 +49,7 @@ config file named `.serverconf.json` is read in the following order from
 
 ## Images
 
-![Image of tv/sound bar turning on and a youtube stream loading](https://raw.githubusercontent.com/AndreasAbdi/alexa-local-server/master/configs/startup.gif)
+![Image of tv/sound bar turning on and a youtube stream loading](https://raw.githubusercontent.com/AndreasAbdi/alexa-local-server/master/docs/startup.gif)
 
 ## References
 
