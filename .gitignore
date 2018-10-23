@@ -14,6 +14,9 @@
 #ignore creds
 .als
 
+#ignore cached build
+.cache
+
 #Ignore go deps vendor path
 vendor/
 
